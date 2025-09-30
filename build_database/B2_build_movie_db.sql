@@ -21,7 +21,7 @@
   CREATE TABLE ratings AS TABLE title_ratings;
   CREATE TABLE persons AS TABLE name_basics;
   CREATE TABLE episodes AS TABLE title_episode;
-  CREATE TABLE principals AS TABLE title_principals;
+  CREATE TABLE participates_in_title AS TABLE title_principals;
   CREATE TABLE genres (genre_id SERIAL, genre VARCHAR (50) NOT NULL UNIQUE);
   CREATE TABLE title_genre (tconst VARCHAR (50) NOT NULL, genre INT4);
   CREATE TABLE word_index AS TABLE wi;
@@ -62,7 +62,7 @@
   WHERE
     primaryprofession IS NOT NULL;
 
---Creating table for each person's professions
+--Creating table for each person's professions from persons
   CREATE TABLE person_profession (nconst VARCHAR (20) NOT NULL, profession_id INT);
 
 --Inserting all persons and their professions into a table
@@ -75,7 +75,7 @@
     JOIN professions ON professions.profession = TRIM(prof_name);
 
   
---Creating title_directors and title_writers tables from title_crew and dropping the redundant table
+--Creating title_directors and title_writers tables from title_crew and dropping the redundant table from title crew
   CREATE TABLE title_directors (tconst VARCHAR (20) NOT NULL, nconst VARCHAR (20) NOT NULL);
 
   INSERT INTO title_directors (tconst, nconst) SELECT
@@ -97,49 +97,50 @@
     writers IS NOT NULL;
   
 
---Creating table for titles person participates in and their profession there
-  CREATE TABLE participates_in_title (
-      participate_id SERIAL,
-      nconst VARCHAR(20) NOT NULL,
-      ordering INT,
-      tconst VARCHAR(20) NOT NULL,
-      profession_id INT 
-  );
+--participates_in_title table has invalid nconst based on our primary key from persons so we need to clean those off
+DELETE FROM participates_in_title pit
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM persons p
+    WHERE p.nconst = pit.nconst
+);
 
-  INSERT INTO participates_in_title (nconst, ordering, tconst, profession_id)
-  SELECT
-     principals.nconst, ordering, tconst, profession_id
-  FROM principals JOIN person_profession ON principals.nconst = person_profession.nconst 
-  WHERE category IS NOT NULL;
+--Now we insert all other participants (directors, writers) to this table that are not there yet originally
+-- Insert directors
+INSERT INTO participates_in_title (tconst, nconst, category, ordering)
+SELECT td.tconst, td.nconst, 'director', NULL
+FROM title_directors td
+LEFT JOIN participates_in_title pit
+       ON pit.tconst = td.tconst
+      AND pit.nconst = td.nconst
+      AND pit.category = 'director'
+      AND pit.ordering IS NULL
+WHERE pit.nconst IS NULL;  
 
-  INSERT INTO participates_in_title (nconst, tconst, profession_id)
-  SELECT nconst, tconst, profession_id
-  FROM (
-      SELECT directors.nconst, directors.tconst, professions.profession_id
-      FROM title_directors directors
-      JOIN professions ON professions.profession = 'director'
+-- Insert writers
+INSERT INTO participates_in_title (tconst, nconst, category, ordering)
+SELECT tw.tconst, tw.nconst, 'writer', NULL
+FROM title_writers tw
+LEFT JOIN participates_in_title pit
+       ON pit.tconst = tw.tconst
+      AND pit.nconst = tw.nconst
+      AND pit.category = 'writer'
+      AND pit.ordering IS NULL
+WHERE pit.nconst IS NULL;
 
-      UNION ALL
+--Use profession_ID from professions instead of category column
+ALTER TABLE participates_in_title
+ADD COLUMN profession_id INT;
 
-      SELECT writers.nconst, writers.tconst, professions.profession_id
-      FROM title_writers writers
-      JOIN professions ON professions.profession = 'writer'
-  ) AS combined
-  WHERE NOT EXISTS (
-      SELECT 1
-      FROM participates_in_title
-      WHERE participates_in_title.nconst = combined.nconst
-        AND participates_in_title.tconst = combined.tconst
-        AND participates_in_title.profession_id = combined.profession_id
-  );
+UPDATE participates_in_title AS pit
+SET profession_id = p.profession_id
+FROM professions AS p
+WHERE pit.category = p.profession;
 
-  INSERT INTO genres (genre)
-  SELECT DISTINCT genre 
-  FROM titles,
-       unnest(string_to_array(titles.genres, ',')) AS genre;
+ALTER TABLE participates_in_title
+DROP COLUMN category;
 
-
-  INSERT INTO title_genre (tconst, genre)
+	INSERT INTO title_genre (tconst, genre)
   SELECT
       titles.tconst,
       genres.genre_id
@@ -176,7 +177,6 @@
   ALTER TABLE episodes ADD CONSTRAINT pk_tconst_episode PRIMARY KEY (tconst), 
                             ADD CONSTRAINT fk_tconst_episode FOREIGN KEY (parenttconst) REFERENCES titles(tconst) ON DELETE CASCADE; -- parenttconts refers to tconst in title basics
 																																																																				 -- (episodes are supposed to be tconst themselves to be searchable)
-  ALTER TABLE principals ADD CONSTRAINT pk_tconst_ordering_nconst PRIMARY KEY (tconst, ordering, nconst, category); 
   ALTER TABLE ratings ADD CONSTRAINT pk__tconst_ratings PRIMARY KEY (tconst),
                             ADD CONSTRAINT fk_tconst_ratings FOREIGN KEY (tconst) REFERENCES titles(tconst) ON DELETE CASCADE;
                             
