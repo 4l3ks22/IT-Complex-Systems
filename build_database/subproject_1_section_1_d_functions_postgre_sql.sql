@@ -71,9 +71,92 @@ EXCEPTION
 CREATE OR REPLACE FUNCTION delete_user(p_user_id int) RETURNS BOOLEAN LANGUAGE plpgsql AS $$
 BEGIN
   DELETE FROM users WHERE user_id = p_user_id;
-  RETURN FOUND; --special boolean variable built-in. true if user existed and deleted, false otherwise
+  RETURN FOUND; -- special boolean variable built-in. true if user existed and deleted, false otherwise
 END;
 $$;
+
+
+-- 1-D.1 Creating functions for managing bookmarking names and titles (add a title or name to user’s bookmarks). CRUD (Create, Read, Update, Delete)
+
+-- Create bookmark function
+CREATE OR REPLACE FUNCTION create_bookmark(
+    p_user_id INT,
+    p_title_id VARCHAR DEFAULT NULL,
+    p_name_id VARCHAR DEFAULT NULL
+) RETURNS BOOLEAN LANGUAGE plpgsql AS $$
+BEGIN
+  INSERT INTO user_bookmarks (user_id, tconst, nconst)
+  VALUES (p_user_id, p_title_id, p_name_id);
+
+  RETURN TRUE;
+
+EXCEPTION
+  WHEN unique_violation THEN
+    RETURN FALSE; -- user already bookmarked same item
+  WHEN others THEN
+    RETURN FALSE;
+END;
+$$;
+
+-- Read bookmarks function
+CREATE OR REPLACE FUNCTION read_bookmarks(p_user_id INT)
+RETURNS TABLE(
+    bookmark_id INT,
+    user_id INT,
+    tconst VARCHAR,
+    nconst VARCHAR,
+    bookmark_time TIMESTAMP
+) LANGUAGE plpgsql AS $$
+BEGIN
+  RETURN QUERY
+  SELECT bookmark_id, user_id, tconst, nconst, bookmark_time
+  FROM user_bookmarks
+  WHERE user_id = p_user_id;
+END;
+$$;
+
+-- Update bookmark function
+CREATE OR REPLACE FUNCTION update_bookmark(
+    p_bookmark_id INT,
+    p_title_id VARCHAR DEFAULT NULL,
+    p_name_id VARCHAR DEFAULT NULL
+) RETURNS BOOLEAN LANGUAGE plpgsql AS $$
+  DECLARE
+  any_changed BOOLEAN := FALSE;
+  BEGIN
+    IF p_title_id IS NOT NULL THEN
+      UPDATE user_bookmarks
+      SET tconst = p_title_id
+      WHERE
+        user_id = p_user_id;
+      any_changed := any_changed
+      OR FOUND; -- FOUND = true if the UPDATE hit a row
+    ELSIF p_name_id IS NOT NULL THEN
+      UPDATE user_bookmarks
+      SET nconst = p_nconst
+      WHERE
+        user_id = p_user_id;
+      any_changed := any_changed
+      OR FOUND; -- FOUND = true if the UPDATE hit a row
+    END IF;
+    
+    RETURN any_changed; -- true if at least one field was updated
+  
+END;
+$$;
+
+
+-- Delete bookmark function
+CREATE OR REPLACE FUNCTION delete_bookmark(p_bookmark_id INT)
+RETURNS BOOLEAN LANGUAGE plpgsql AS $$
+BEGIN
+  DELETE FROM user_bookmarks
+  WHERE bookmark_id = p_bookmark_id;
+
+  RETURN FOUND; -- TRUE if deleted, FALSE if not
+END;
+$$;
+
 
 -- 1-D.2 Simple search
 
