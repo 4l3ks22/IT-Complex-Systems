@@ -65,7 +65,7 @@ EXCEPTION
     
     RETURN any_changed; --true if at least one field was updated
     END;
-    $$
+    $$;
 
 -- Delete user function
 CREATE OR REPLACE FUNCTION delete_user(p_user_id int) RETURNS BOOLEAN LANGUAGE plpgsql AS $$
