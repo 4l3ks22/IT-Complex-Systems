@@ -11,3 +11,8 @@ SELECT update_user(1, 'alin', NULL, NULL);  -- should return false cannot have n
 -- Delete user
 SELECT delete_user(1);  -- should delete user
 SELECT delete_user(99);  -- should return false as 99 doesn't exist
+
+
+
+
+-- sakfnasjkfnsanflasnjasoifjlasnlgnsaiolgjiasopjgaslnmipjaspj
