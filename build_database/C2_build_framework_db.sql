@@ -35,7 +35,9 @@ CREATE TABLE user_bookmarks (
     bookmark_time TIMESTAMP DEFAULT NOW(),
     CONSTRAINT one_of_title_or_name CHECK (
         (tconst IS NOT NULL) OR (nconst IS NOT NULL)
-    )
+    ),
+    CONSTRAINT unique_user_title UNIQUE (user_id, tconst),
+    CONSTRAINT unique_user_name UNIQUE (user_id, nconst)
 );
 
 
