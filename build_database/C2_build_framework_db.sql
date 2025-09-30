@@ -40,5 +40,11 @@ CREATE TABLE user_bookmarks (
     CONSTRAINT unique_user_name UNIQUE (user_id, nconst)
 );
 
+ALTER TABLE user_rating_history
+  ADD CONSTRAINT fk_tconst_u_rating_history FOREIGN KEY (tconst) REFERENCES titles(tconst) ON DELETE CASCADE;
+  
+ALTER TABLE user_bookmarks
+  ADD CONSTRAINT fk_tconst_user_bookmark FOREIGN KEY (tconst) REFERENCES titles(tconst) ON DELETE CASCADE,
+  ADD CONSTRAINT fk_nconst_user_bookmark FOREIGN KEY (nconst) REFERENCES persons(nconst) ON DELETE CASCADE;
 
 
