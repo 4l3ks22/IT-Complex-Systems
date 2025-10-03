@@ -23,7 +23,6 @@ SELECT nconst, unnest(string_to_array(knownfortitles, ',')) AS tconst
 FROM persons
 WHERE knownfortitles IS NOT NULL;
 
--- There are tconst values in known_for_titles that do not exist in titles table
 -- Making sure to remove titles that are not in our main titles table (not existent anymore or missing)
 DELETE FROM known_for_title k
 WHERE NOT EXISTS (SELECT 1 FROM titles t WHERE t.tconst = k.tconst);
@@ -47,7 +46,6 @@ FROM participates_in_title
 WHERE category IS NOT NULL
   AND category NOT IN (SELECT profession FROM professions);
 
--- There are nconst values in participates_in_title that do not exist in persons table
 -- Making sure to remove people that are not in our main persons database to match (as otherwise we would have nconst for people, who we don't have names of)
 DELETE FROM participates_in_title pit
 WHERE NOT EXISTS (SELECT 1 FROM persons p WHERE p.nconst = pit.nconst);
@@ -64,7 +62,6 @@ INSERT INTO title_writers (tconst, nconst)
 SELECT tconst, unnest(string_to_array(writers, ',')) AS nconst
 FROM crew
  WHERE writers IS NOT NULL;
-
 
 -- To make looking for participates easier, quicker and keep persons' professions in a separate table for normalization purpose - we implemented a surrogate primary key that is an ID, which is unique for each participant, movie, ordering specifically
 ALTER TABLE participates_in_title
