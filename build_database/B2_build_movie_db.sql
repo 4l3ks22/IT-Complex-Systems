@@ -1,7 +1,7 @@
 -- Dropping tables to rebuild the database
 DROP TABLE IF EXISTS titles, versions, persons, episodes, principals, genres, title_genre,
 participates_in_title,crew, known_for_title, person_profession, professions,
-title_directors, title_writers, ratings, title_extras, word_index CASCADE;
+title_directors, title_writers, ratings, title_extras, word_index, name_ratings CASCADE;
 
 -- Creating copies of original tables that will be used to build our functioning database - not touching originals in order to be able to rebuild
 CREATE TABLE titles AS TABLE title_basics;
