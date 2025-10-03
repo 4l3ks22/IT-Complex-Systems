@@ -1,13 +1,54 @@
--- Create users
-SELECT create_user('alin', 'alin@eugen.com', 'romania');  -- should return True
-SELECT create_user('alexander', 'alin@eugen.com', 'slovakia');  -- should return false due to violation
+-- Create, read, update and delete user
 
--- Read user
-SELECT * FROM read_user('alin');
+SELECT create_user('Cesar', 'cesar@abuelo.dk', 'test');
 
--- Update user
-SELECT update_user(1, 'alin', NULL, NULL);  -- should return false cannot have nulls - had problem with duplicate keys so had to fix the function
+SELECT read_user('Cesar');
 
--- Delete user
-SELECT delete_user(1);  -- should delete user
-SELECT delete_user(99);  -- should return false as 99 doesn't exist
+SELECT update_user(1, 'Cesar', 'cesar@ruc.dk');
+
+SELECT delete_user(1);
+
+-- Create, read, update and delete bookmark
+-- Need user to have bookmarks
+SELECT create_user ('Alin', 'alin@eugen.dk', 'bookmarktest');
+
+SELECT create_bookmark(2, 'tt0757240');
+
+SELECT read_bookmarks(2);
+
+SELECT update_bookmark(2, 'tt13321042');
+
+SELECT read_bookmarks(2);
+
+SELECT delete_bookmark(2);
+
+SELECT read_bookmarks(2);
+
+-- Simple Search test
+SELECT simple_search(2, 'hello');
+SELECT simple_search(NULL , 'matrix'); -- search without user
+SELECT * from user_search_history; -- checking search history if user was registered
+
+-- Rating test
+SELECT * from ratings where tconst = 'tt32452395'; -- before rating
+SELECT rate(2, 'tt32452395', 10);
+SELECT * from ratings where tconst = 'tt32452395'; -- after rating
+
+-- Structured search
+SELECT structured_string_search(2, 'matrix');
+
+-- Finding names test
+SELECT name_search(2, 'alin');
+
+-- Finding co-players test
+SELECT co_players('Keanu Angelo');
+
+-- Name rating test
+SELECT update_name_rating('nm4481520');
+SELECT * FROM name_ratings;
+
+-- Popular actors test
+SELECT popular_actors('tt19403210');
+
+-- Similar movies
+SELECT similar_movies('tt19403210');

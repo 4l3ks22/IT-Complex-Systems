@@ -91,15 +91,15 @@ CREATE
 OR REPLACE FUNCTION read_bookmarks (input_user_id INT) RETURNS TABLE (bookmark_id INT, user_id INT, tconst VARCHAR, nconst VARCHAR, bookmark_time TIMESTAMP) LANGUAGE plpgsql AS $$
 BEGIN
   RETURN QUERY SELECT
-    bookmark_id,
-    user_id,
-    tconst,
-    nconst,
-    bookmark_time
+    u.bookmark_id,
+    u.user_id,
+    u.tconst,
+    u.nconst,
+    u.bookmark_time
   FROM
-    user_bookmarks
+    user_bookmarks u
   WHERE
-    user_id = input_user_id;
+    u.user_id = input_user_id;
 END;
 $$;
 -- Update bookmark
@@ -139,7 +139,7 @@ END;
 $$;
 -- 1-D.2 Simple search
 CREATE
-OR REPLACE FUNCTION simple_search (input_query TEXT, input_user_id INT DEFAULT NULL) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
+OR REPLACE FUNCTION simple_search (input_user_id INT DEFAULT NULL, input_query TEXT DEFAULT NULL) RETURNS TABLE (tconst CHAR(10), title TEXT) LANGUAGE plpgsql AS $$
 BEGIN
   -- Log the search if user_id is provided
   IF input_user_id IS NOT NULL THEN
@@ -150,14 +150,14 @@ BEGIN
   
   -- Return search results
   RETURN QUERY SELECT
-    tconst,
-    primarytitle AS title
+    t.tconst,
+    t.primarytitle AS title
   FROM
-    titles
+    titles t
   WHERE
-    LOWER(primarytitle) LIKE LOWER('%' || input_query || '%')
+    LOWER(t.primarytitle) LIKE LOWER('%' || input_query || '%')
   ORDER BY
-    primarytitle
+    t.primarytitle
     LIMIT 100;
 END;
 $$;
@@ -230,67 +230,68 @@ BEGIN
   END;
   $$;
   -- 1-D.4 Structured search
-  CREATE
-  OR REPLACE FUNCTION structured_string_search (input_user_id INT, input_title TEXT, input_plot TEXT, input_characters TEXT, input_person_name TEXT) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
-  BEGIN
-    -- Log the search directly into user_search_history
-    INSERT INTO user_search_history (user_id, search_term, search_time)
-    VALUES
-    (input_user_id, concat_ws (' | ', input_title, input_plot, input_characters, input_person_name), NOW());
-    
-    -- Return the structured search results
-    RETURN QUERY WITH candidate_titles AS (
-      SELECT
-        t.tconst,
-        t.primarytitle AS title
-      FROM
-        titles t
-        LEFT JOIN title_extras te ON te.tconst = t.tconst
-      WHERE
-        (input_title IS NULL OR LOWER(t.primarytitle) LIKE LOWER('%' || input_title || '%'))
-        AND (
-          input_plot IS NULL
-          OR (te.plot IS NOT NULL AND LOWER(te.plot) LIKE LOWER('%' || input_plot || '%'))
-        )
-    ),
-    char_filtered AS (
-      SELECT DISTINCT
-        ct.tconst,
-        ct.title
-      FROM
-        candidate_titles ct
-        LEFT JOIN participates_in_title pit ON pit.tconst = ct.tconst
-      WHERE
-        input_characters IS NULL
-        OR (
-          pit.CHARACTERS IS NOT NULL
-          AND LOWER(regexinput_replace (pit.CHARACTERS, '[\[\]"]', '', 'g')) LIKE LOWER('%' || input_characters || '%')
-        )
-    ),
-    person_filtered AS (
-      SELECT DISTINCT
-        cf.tconst,
-        cf.title
-      FROM
-        char_filtered cf
-        LEFT JOIN participates_in_title pit2 ON pit2.tconst = cf.tconst
-        LEFT JOIN persons n ON n.nconst = pit2.nconst
-      WHERE
-        input_person_name IS NULL
-        OR (n.primaryname IS NOT NULL AND LOWER(n.primaryname) LIKE LOWER('%' || input_person_name || '%'))
-    ) SELECT
-      tconst,
-      title
-    FROM
-      person_filtered
-    ORDER BY
-      title
-      LIMIT 500;
-  END;
-  $$;
+--   CREATE
+--   OR REPLACE FUNCTION structured_string_search (input_user_id INT DEFAULT NULL, input_title TEXT DEFAULT NULL, input_plot TEXT DEFAULT NULL, input_characters TEXT DEFAULT NULL, input_person_name TEXT DEFAULT NULL) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
+--   BEGIN
+--     -- Log the search directly into user_search_history
+-- 		IF input_user_id IS NOT NULL THEN
+--     INSERT INTO user_search_history (user_id, search_term, search_time)
+--     VALUES
+--     (input_user_id, concat_ws (' | ', input_title, input_plot, input_characters, input_person_name), NOW());
+--     END IF;
+--     
+--     RETURN QUERY WITH candidate_titles AS (
+--       SELECT
+--         t.tconst,
+--         t.primarytitle AS title
+--       FROM
+--         titles t
+--         LEFT JOIN title_extras te ON te.tconst = t.tconst
+--       WHERE
+--         (input_title IS NULL OR LOWER(t.primarytitle) LIKE LOWER('%' || input_title || '%'))
+--         AND (
+--           input_plot IS NULL
+--           OR (te.plot IS NOT NULL AND LOWER(te.plot) LIKE LOWER('%' || input_plot || '%'))
+--         )
+--     ),
+--     char_filtered AS (
+--       SELECT DISTINCT
+--         ct.tconst,
+--         ct.title
+--       FROM
+--         candidate_titles ct
+--         LEFT JOIN participates_in_title pit ON pit.tconst = ct.tconst
+--       WHERE
+--         input_characters IS NULL
+--         OR (
+--           pit.CHARACTERS IS NOT NULL
+--           AND LOWER(regexinput_replace (pit.CHARACTERS, '[\[\]"]', '', 'g')) LIKE LOWER('%' || input_characters || '%')
+--         )
+--     ),
+--     person_filtered AS (
+--       SELECT DISTINCT
+--         cf.tconst,
+--         cf.title
+--       FROM
+--         char_filtered cf
+--         LEFT JOIN participates_in_title pit2 ON pit2.tconst = cf.tconst
+--         LEFT JOIN persons n ON n.nconst = pit2.nconst
+--       WHERE
+--         input_person_name IS NULL
+--         OR (n.primaryname IS NOT NULL AND LOWER(n.primaryname) LIKE LOWER('%' || input_person_name || '%'))
+--     ) SELECT
+--       tconst,
+--       title
+--     FROM
+--       person_filtered
+--     ORDER BY
+--       title
+--       LIMIT 500;
+--   END;
+--   $$;
   -- 1_D.5 Finding Names
   CREATE
-  OR REPLACE FUNCTION name_search (input_user_id INT, input_query TEXT) RETURNS TABLE (nconst VARCHAR, primaryname TEXT) LANGUAGE plpgsql AS $$
+  OR REPLACE FUNCTION name_search (input_user_id INT, input_query TEXT) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256)) LANGUAGE plpgsql AS $$
   BEGIN
     IF input_user_id IS NOT NULL THEN
       INSERT INTO user_search_history (user_id, search_term, search_time)
@@ -311,7 +312,7 @@ BEGIN
   $$;
   -- 1_D.6 Finding co-players
   CREATE
-  OR REPLACE FUNCTION co_players (input_name TEXT) RETURNS TABLE (nconst VARCHAR, primaryname TEXT, frequency INT) LANGUAGE plpgsql AS $$
+  OR REPLACE FUNCTION co_players (input_name TEXT) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256), frequency BIGINT) LANGUAGE plpgsql AS $$
   BEGIN
     RETURN QUERY WITH TARGET AS (
       SELECT DISTINCT
@@ -341,66 +342,69 @@ BEGIN
   END;
   $$;
   -- 1_D.7 Name rating
-  CREATE
-  OR REPLACE FUNCTION update_name_rating (input_nconst VARCHAR) RETURNS VOID LANGUAGE plpgsql AS $$
-  BEGIN
-    INSERT INTO name_ratings (nconst, weighted_rating) SELECT
-      pit.nconst,
-      SUM(r.averagerating * r.numvotes) :: NUMERIC / NULLIF (SUM(r.numvotes), 0)
-    FROM
-      participates_in_title pit
-      JOIN ratings r ON r.tconst = pit.tconst
-    WHERE
-      pit.nconst = input_nconst
-    GROUP BY
-      pit.nconst ON CONFLICT (nconst) DO
-        UPDATE
-        SET weighted_rating = EXCLUDED.weighted_rating;
-      END;
-    $$;
+CREATE OR REPLACE FUNCTION update_name_rating (input_nconst VARCHAR(10))
+RETURNS VOID
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  INSERT INTO name_ratings (nconst, weighted_rating)
+  SELECT
+    pit.nconst,
+		SUM(r.averagerating * r.numvotes)::NUMERIC / NULLIF(SUM(r.numvotes), 0)
+  FROM participates_in_title pit
+  JOIN ratings r ON r.tconst = pit.tconst
+  WHERE pit.nconst = input_nconst
+  GROUP BY pit.nconst;
+END;
+$$;
     -- 1_D.8 Popular actors
     CREATE
-    OR REPLACE FUNCTION popular_actors (input_tconst VARCHAR) RETURNS TABLE (nconst VARCHAR, primaryname TEXT, popularity NUMERIC) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION popular_actors (input_tconst VARCHAR) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256), popularity NUMERIC) LANGUAGE plpgsql AS $$
     BEGIN
-      RETURN QUERY SELECT PER.nconst,
-        PER.primaryname,
-        nr.weighted_rating AS popularity
+      RETURN QUERY SELECT pr.nconst,
+        pr.primaryname,
+        nr.weighted_rating::NUMERIC AS popularity
       FROM
         participates_in_title pit
-        JOIN persons PER ON PER.nconst = pit.nconst
-        LEFT JOIN name_ratings nr ON nr.nconst = PER.nconst
+        JOIN persons pr ON pr.nconst = pit.nconst
+        LEFT JOIN name_ratings nr ON nr.nconst = pr.nconst
       WHERE
         pit.tconst = input_tconst
       ORDER BY
         nr.weighted_rating DESC NULLS LAST,
-        PER.primaryname;
+        pr.primaryname;
     END;
     $$;
     -- 1_D.9 Similar movies
-    CREATE
-    OR REPLACE FUNCTION similar_movies (input_tconst VARCHAR) RETURNS TABLE (tconst VARCHAR, title TEXT, similarity INT) LANGUAGE plpgsql AS $$
-    BEGIN
-      RETURN QUERY WITH movie_genres AS (SELECT DISTINCT genre FROM title_genre WHERE tconst = input_tconst) SELECT
-        t.tconst,
-        t.primarytitle,
-        COUNT(DISTINCT tg.genre) AS similarity
-      FROM
-        titles t
-        JOIN title_genre tg ON tg.tconst = t.tconst
-        JOIN movie_genres mg ON mg.genre = tg.genre
-      WHERE
-        t.tconst <> input_tconst
-      GROUP BY
-        t.tconst,
-        t.primarytitle
-      HAVING
-        COUNT(DISTINCT tg.genre) > 0
-      ORDER BY
-        similarity DESC,
-        t.primarytitle
-        LIMIT 20;
-    END;
-    $$;
+CREATE OR REPLACE FUNCTION similar_movies (input_tconst VARCHAR)
+RETURNS TABLE (
+  tconst CHAR(10),
+  title TEXT,
+  similarity BIGINT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RETURN QUERY
+  WITH movie_genres AS (
+    SELECT DISTINCT genre
+    FROM title_genre
+    WHERE title_genre.tconst = input_tconst  
+  )
+  SELECT
+    t.tconst,
+    t.primarytitle,
+    COUNT(DISTINCT tg.genre) AS similarity
+  FROM titles t
+  JOIN title_genre tg ON tg.tconst = t.tconst
+  JOIN movie_genres mg ON mg.genre = tg.genre
+  WHERE t.tconst <> input_tconst
+  GROUP BY t.tconst, t.primarytitle
+  HAVING COUNT(DISTINCT tg.genre) > 0
+  ORDER BY similarity DESC, t.primarytitle
+  LIMIT 20;
+END;
+$$;
     
     -- 1_D.10 Frequent person words
     CREATE
@@ -423,7 +427,7 @@ BEGIN
     $$;
     -- 1_D.11 Exact-match querying
     CREATE
-    OR REPLACE FUNCTION query_match (input_keywords TEXT []) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION query_match (input_keywords TEXT []) RETURNS TABLE (tconst CHAR(10), title TEXT) LANGUAGE plpgsql AS $$
     BEGIN
       RETURN QUERY SELECT
         t.tconst,
@@ -445,7 +449,7 @@ BEGIN
     $$;
     -- 1_D.12 Best-match querying
     CREATE
-    OR REPLACE FUNCTION query_best_match (input_keywords TEXT [], input_limit INT DEFAULT 100) RETURNS TABLE (tconst VARCHAR, title TEXT, RANK INT) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION query_best_match (input_keywords TEXT [], input_limit INT DEFAULT 100) RETURNS TABLE (tconst CHAR(10), title TEXT, RANK INT) LANGUAGE plpgsql AS $$
     BEGIN
       RETURN QUERY SELECT
         t.tconst,
