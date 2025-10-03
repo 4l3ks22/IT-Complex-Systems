@@ -148,8 +148,7 @@ CREATE TABLE name_ratings(
 	weighted_rating INT
 );
 
-ALTER TABLE name_ratings ADD CONSTRAINT pk_nconst_weighted_rating PRIMARY KEY (nconst, weighted_rating),
-												 ADD CONSTRAINT fk_ratings_nconst FOREIGN KEY (nconst) REFERENCES persons(nconst);
+
 
 -- Add constraints
 ALTER TABLE persons ADD CONSTRAINT pk_nconst_namebasics PRIMARY KEY (nconst);
@@ -188,3 +187,6 @@ ALTER TABLE title_extras
 ALTER TABLE word_index
   ADD CONSTRAINT pk_tconst_lexeme PRIMARY KEY (tconst, word, field),
   ADD CONSTRAINT fk_tconst_word_index FOREIGN KEY (tconst) REFERENCES titles(tconst) ON DELETE CASCADE;
+  
+  ALTER TABLE name_ratings ADD CONSTRAINT pk_nconst_weighted_rating PRIMARY KEY (nconst, weighted_rating),
+												 ADD CONSTRAINT fk_ratings_nconst FOREIGN KEY (nconst) REFERENCES persons(nconst);

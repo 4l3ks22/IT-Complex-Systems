@@ -230,65 +230,65 @@ BEGIN
   END;
   $$;
   -- 1-D.4 Structured search
---   CREATE
---   OR REPLACE FUNCTION structured_string_search (input_user_id INT DEFAULT NULL, input_title TEXT DEFAULT NULL, input_plot TEXT DEFAULT NULL, input_characters TEXT DEFAULT NULL, input_person_name TEXT DEFAULT NULL) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
---   BEGIN
---     -- Log the search directly into user_search_history
--- 		IF input_user_id IS NOT NULL THEN
---     INSERT INTO user_search_history (user_id, search_term, search_time)
---     VALUES
---     (input_user_id, concat_ws (' | ', input_title, input_plot, input_characters, input_person_name), NOW());
---     END IF;
---     
---     RETURN QUERY WITH candidate_titles AS (
---       SELECT
---         t.tconst,
---         t.primarytitle AS title
---       FROM
---         titles t
---         LEFT JOIN title_extras te ON te.tconst = t.tconst
---       WHERE
---         (input_title IS NULL OR LOWER(t.primarytitle) LIKE LOWER('%' || input_title || '%'))
---         AND (
---           input_plot IS NULL
---           OR (te.plot IS NOT NULL AND LOWER(te.plot) LIKE LOWER('%' || input_plot || '%'))
---         )
---     ),
---     char_filtered AS (
---       SELECT DISTINCT
---         ct.tconst,
---         ct.title
---       FROM
---         candidate_titles ct
---         LEFT JOIN participates_in_title pit ON pit.tconst = ct.tconst
---       WHERE
---         input_characters IS NULL
---         OR (
---           pit.CHARACTERS IS NOT NULL
---           AND LOWER(regexinput_replace (pit.CHARACTERS, '[\[\]"]', '', 'g')) LIKE LOWER('%' || input_characters || '%')
---         )
---     ),
---     person_filtered AS (
---       SELECT DISTINCT
---         cf.tconst,
---         cf.title
---       FROM
---         char_filtered cf
---         LEFT JOIN participates_in_title pit2 ON pit2.tconst = cf.tconst
---         LEFT JOIN persons n ON n.nconst = pit2.nconst
---       WHERE
---         input_person_name IS NULL
---         OR (n.primaryname IS NOT NULL AND LOWER(n.primaryname) LIKE LOWER('%' || input_person_name || '%'))
---     ) SELECT
---       tconst,
---       title
---     FROM
---       person_filtered
---     ORDER BY
---       title
---       LIMIT 500;
---   END;
---   $$;
+  CREATE
+  OR REPLACE FUNCTION structured_string_search (input_user_id INT DEFAULT NULL, input_title TEXT DEFAULT NULL, input_plot TEXT DEFAULT NULL, input_characters TEXT DEFAULT NULL, input_person_name TEXT DEFAULT NULL) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
+  BEGIN
+    -- Log the search directly into user_search_history
+		IF input_user_id IS NOT NULL THEN
+    INSERT INTO user_search_history (user_id, search_term, search_time)
+    VALUES
+    (input_user_id, concat_ws (' | ', input_title, input_plot, input_characters, input_person_name), NOW()); -- i dont think we need now because we have it in the creation of the table
+    END IF;
+    
+    RETURN QUERY WITH candidate_titles AS (
+      SELECT
+        t.tconst,
+        t.primarytitle AS title
+      FROM
+        titles t
+        LEFT JOIN title_extras te ON te.tconst = t.tconst
+      WHERE
+        (input_title IS NULL OR LOWER(t.primarytitle) LIKE LOWER('%' || input_title || '%')) -- case sensitive?
+        AND (
+          input_plot IS NULL
+          OR (te.plot IS NOT NULL AND LOWER(te.plot) LIKE LOWER('%' || input_plot || '%'))
+        )
+    ),
+    char_filtered AS (
+      SELECT DISTINCT
+        ct.tconst,
+        ct.title
+      FROM
+        candidate_titles ct
+        LEFT JOIN participates_in_title pit ON pit.tconst = ct.tconst
+      WHERE
+        input_characters IS NULL
+        OR (
+          pit.CHARACTERS IS NOT NULL
+          AND LOWER(regexinput_replace (pit.CHARACTERS, '[\[\]"]', '', 'g')) LIKE LOWER('%' || input_characters || '%')
+        )
+    ),
+    person_filtered AS (
+      SELECT DISTINCT
+        cf.tconst,
+        cf.title
+      FROM
+        char_filtered cf
+        LEFT JOIN participates_in_title pit2 ON pit2.tconst = cf.tconst
+        LEFT JOIN persons n ON n.nconst = pit2.nconst
+      WHERE
+        input_person_name IS NULL
+        OR (n.primaryname IS NOT NULL AND LOWER(n.primaryname) LIKE LOWER('%' || input_person_name || '%'))
+    ) SELECT
+      tconst,
+      title
+    FROM
+      person_filtered
+    ORDER BY
+      title
+      LIMIT 500;
+  END;
+  $$;
   -- 1_D.5 Finding Names
   CREATE
   OR REPLACE FUNCTION name_search (input_user_id INT, input_query TEXT) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256)) LANGUAGE plpgsql AS $$

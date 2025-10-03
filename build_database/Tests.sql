@@ -47,8 +47,10 @@ SELECT co_players('Keanu Angelo');
 SELECT update_name_rating('nm4481520');
 SELECT * FROM name_ratings;
 
+SELECT simple_search(2, 'top gun: maverick');
+
 -- Popular actors test
-SELECT popular_actors('tt19403210');
+SELECT popular_actors('tt1745960');
 
 -- Similar movies
 SELECT similar_movies('tt19403210');
