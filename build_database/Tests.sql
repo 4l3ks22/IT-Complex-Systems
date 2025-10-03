@@ -35,7 +35,7 @@ SELECT rate(2, 'tt32452395', 10);
 SELECT * from ratings where tconst = 'tt32452395'; -- after rating
 
 -- Structured search
-SELECT structured_string_search(2, 'matrix');
+SELECT structured_string_search(2, 'John Wick', NULL, NULL, 'Keanu Reeves');
 
 -- Finding names test
 SELECT name_search(2, 'alin');
@@ -43,14 +43,10 @@ SELECT name_search(2, 'alin');
 -- Finding co-players test
 SELECT co_players('Keanu Angelo');
 
--- Name rating test
-SELECT update_name_rating('nm4481520');
-SELECT * FROM name_ratings;
-
-SELECT simple_search(2, 'top gun: maverick');
-
 -- Popular actors test
 SELECT popular_actors('tt1745960');
 
 -- Similar movies
 SELECT similar_movies('tt19403210');
+
+SELECT * FROM titles where lower(titles.primarytitle) = 'top gun: maverick';

@@ -229,66 +229,48 @@ BEGIN
     END IF;
   END;
   $$;
-  -- 1-D.4 Structured search
-  CREATE
-  OR REPLACE FUNCTION structured_string_search (input_user_id INT DEFAULT NULL, input_title TEXT DEFAULT NULL, input_plot TEXT DEFAULT NULL, input_characters TEXT DEFAULT NULL, input_person_name TEXT DEFAULT NULL) RETURNS TABLE (tconst VARCHAR, title TEXT) LANGUAGE plpgsql AS $$
-  BEGIN
-    -- Log the search directly into user_search_history
-		IF input_user_id IS NOT NULL THEN
-    INSERT INTO user_search_history (user_id, search_term, search_time)
-    VALUES
-    (input_user_id, concat_ws (' | ', input_title, input_plot, input_characters, input_person_name), NOW()); -- i dont think we need now because we have it in the creation of the table
+	
+-- 1-D.4 Structured string search
+CREATE OR REPLACE FUNCTION structured_string_search(
+    input_user_id INT DEFAULT NULL,
+    input_title VARCHAR DEFAULT NULL,
+    input_plot VARCHAR DEFAULT NULL,
+    input_characters VARCHAR DEFAULT NULL,
+    input_name VARCHAR DEFAULT NULL
+)
+RETURNS TABLE(
+    tconst CHAR(10),
+    title TEXT
+) 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF input_user_id IS NOT NULL THEN
+        INSERT INTO user_search_history (user_id, search_term, search_time)
+        VALUES (
+            input_user_id,
+            COALESCE('Title: ' || input_title || '; ', '') || 
+            COALESCE('Plot: ' || input_plot || '; ', '') || 
+            COALESCE('Characters: ' || input_characters || '; ', '') || 
+            COALESCE('Person: ' || input_name || '', ''),
+            NOW()
+        );
     END IF;
-    
-    RETURN QUERY WITH candidate_titles AS (
-      SELECT
-        t.tconst,
-        t.primarytitle AS title
-      FROM
-        titles t
-        LEFT JOIN title_extras te ON te.tconst = t.tconst
-      WHERE
-        (input_title IS NULL OR LOWER(t.primarytitle) LIKE LOWER('%' || input_title || '%')) -- case sensitive?
-        AND (
-          input_plot IS NULL
-          OR (te.plot IS NOT NULL AND LOWER(te.plot) LIKE LOWER('%' || input_plot || '%'))
-        )
-    ),
-    char_filtered AS (
-      SELECT DISTINCT
-        ct.tconst,
-        ct.title
-      FROM
-        candidate_titles ct
-        LEFT JOIN participates_in_title pit ON pit.tconst = ct.tconst
-      WHERE
-        input_characters IS NULL
-        OR (
-          pit.CHARACTERS IS NOT NULL
-          AND LOWER(regexinput_replace (pit.CHARACTERS, '[\[\]"]', '', 'g')) LIKE LOWER('%' || input_characters || '%')
-        )
-    ),
-    person_filtered AS (
-      SELECT DISTINCT
-        cf.tconst,
-        cf.title
-      FROM
-        char_filtered cf
-        LEFT JOIN participates_in_title pit2 ON pit2.tconst = cf.tconst
-        LEFT JOIN persons n ON n.nconst = pit2.nconst
-      WHERE
-        input_person_name IS NULL
-        OR (n.primaryname IS NOT NULL AND LOWER(n.primaryname) LIKE LOWER('%' || input_person_name || '%'))
-    ) SELECT
-      tconst,
-      title
-    FROM
-      person_filtered
-    ORDER BY
-      title
-      LIMIT 500;
-  END;
-  $$;
+
+    RETURN QUERY
+    SELECT DISTINCT t.tconst, t.primarytitle
+    FROM titles AS t
+    LEFT JOIN title_extras te ON t.tconst = te.tconst
+    LEFT JOIN participates_in_title pit ON t.tconst = pit.tconst
+    LEFT JOIN persons pr ON pit.nconst = pr.nconst
+    WHERE  
+        (input_title IS NULL OR t.primarytitle ILIKE '%' || input_title || '%') AND
+        (input_plot IS NULL OR te.plot ILIKE '%' || input_plot || '%') AND
+        (input_characters IS NULL OR pit.characters ILIKE '%' || input_characters || '%') AND
+        (input_name IS NULL OR pr.primaryname ILIKE '%' || input_name || '%');
+END;
+$$;
+
   -- 1_D.5 Finding Names
   CREATE
   OR REPLACE FUNCTION name_search (input_user_id INT, input_query TEXT) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256)) LANGUAGE plpgsql AS $$
@@ -342,39 +324,43 @@ BEGIN
   END;
   $$;
   -- 1_D.7 Name rating
-CREATE OR REPLACE FUNCTION update_name_rating (input_nconst VARCHAR(10))
-RETURNS VOID
+DO $$
+BEGIN
+  INSERT INTO person_ratings (nconst, weighted_rating)
+  SELECT
+    pit.nconst,
+    SUM(r.averagerating * r.numvotes)::NUMERIC / NULLIF(SUM(r.numvotes), 0) AS weighted_rating
+  FROM participates_in_title pit
+  JOIN ratings r ON r.tconst = pit.tconst
+  GROUP BY pit.nconst
+  ON CONFLICT (nconst) DO UPDATE
+    SET weighted_rating = EXCLUDED.weighted_rating;
+END;
+$$;
+
+    -- 1_D.8 Popular actors
+CREATE OR REPLACE FUNCTION popular_actors(input_tconst VARCHAR)
+RETURNS TABLE (
+    nconst CHAR(10),
+    primaryname VARCHAR(256),
+    popularity NUMERIC
+)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-  INSERT INTO name_ratings (nconst, weighted_rating)
+  RETURN QUERY
   SELECT
-    pit.nconst,
-		SUM(r.averagerating * r.numvotes)::NUMERIC / NULLIF(SUM(r.numvotes), 0)
+    pr.nconst,
+    pr.primaryname,
+    MAX(nr.weighted_rating::NUMERIC) AS popularity
   FROM participates_in_title pit
-  JOIN ratings r ON r.tconst = pit.tconst
-  WHERE pit.nconst = input_nconst
-  GROUP BY pit.nconst;
+  JOIN persons pr ON pr.nconst = pit.nconst
+  LEFT JOIN name_ratings nr ON nr.nconst = pr.nconst
+  WHERE pit.tconst = input_tconst
+  GROUP BY pr.nconst, pr.primaryname
+  ORDER BY popularity DESC NULLS LAST, pr.primaryname;
 END;
 $$;
-    -- 1_D.8 Popular actors
-    CREATE
-    OR REPLACE FUNCTION popular_actors (input_tconst VARCHAR) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256), popularity NUMERIC) LANGUAGE plpgsql AS $$
-    BEGIN
-      RETURN QUERY SELECT pr.nconst,
-        pr.primaryname,
-        nr.weighted_rating::NUMERIC AS popularity
-      FROM
-        participates_in_title pit
-        JOIN persons pr ON pr.nconst = pit.nconst
-        LEFT JOIN name_ratings nr ON nr.nconst = pr.nconst
-      WHERE
-        pit.tconst = input_tconst
-      ORDER BY
-        nr.weighted_rating DESC NULLS LAST,
-        pr.primaryname;
-    END;
-    $$;
     -- 1_D.9 Similar movies
 CREATE OR REPLACE FUNCTION similar_movies (input_tconst VARCHAR)
 RETURNS TABLE (

@@ -14,11 +14,12 @@ CREATE TABLE users (
 
 -- Table for user's search history
 CREATE TABLE user_search_history (
-    search_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
     search_term TEXT NOT NULL,
     search_time TIMESTAMP DEFAULT NOW()
 );
+
+ALTER TABLE user_search_history ADD CONSTRAINT pk_user_id_search_time PRIMARY KEY (user_id, search_time);
 
 -- History of user's rating
 CREATE TABLE user_rating_history (

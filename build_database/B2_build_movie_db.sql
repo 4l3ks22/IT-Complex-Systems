@@ -1,7 +1,7 @@
 -- Dropping tables to rebuild the database
 DROP TABLE IF EXISTS titles, versions, persons, episodes, principals, genres, title_genre,
 participates_in_title,crew, known_for_title, person_profession, professions,
-title_directors, title_writers, ratings, title_extras, word_index, name_ratings CASCADE;
+title_directors, title_writers, ratings, title_extras, name_ratings, word_index CASCADE;
 
 -- Creating copies of original tables that will be used to build our functioning database - not touching originals in order to be able to rebuild
 CREATE TABLE titles AS TABLE title_basics;
@@ -142,14 +142,6 @@ SELECT omdb_data.tconst, omdb_data.awards, omdb_data.poster, omdb_data.plot
 FROM omdb_data
 JOIN titles ON omdb_data.tconst = titles.tconst;
 
--- Create table for name_ratings
-CREATE TABLE name_ratings(
-	nconst VARCHAR(10),
-	weighted_rating INT
-);
-
-
-
 -- Add constraints
 ALTER TABLE persons ADD CONSTRAINT pk_nconst_namebasics PRIMARY KEY (nconst);
 ALTER TABLE titles ADD CONSTRAINT pk_tconst_titlebasics PRIMARY KEY (tconst);
@@ -187,6 +179,12 @@ ALTER TABLE title_extras
 ALTER TABLE word_index
   ADD CONSTRAINT pk_tconst_lexeme PRIMARY KEY (tconst, word, field),
   ADD CONSTRAINT fk_tconst_word_index FOREIGN KEY (tconst) REFERENCES titles(tconst) ON DELETE CASCADE;
-  
-  ALTER TABLE name_ratings ADD CONSTRAINT pk_nconst_weighted_rating PRIMARY KEY (nconst, weighted_rating),
+	
+	-- Create table for name_ratings
+CREATE TABLE person_ratings(
+	nconst VARCHAR(10) UNIQUE,
+	weighted_rating NUMERIC
+);
+
+ALTER TABLE person_ratings ADD CONSTRAINT pk_nconst_weighted_rating PRIMARY KEY (nconst, weighted_rating),
 												 ADD CONSTRAINT fk_ratings_nconst FOREIGN KEY (nconst) REFERENCES persons(nconst);
