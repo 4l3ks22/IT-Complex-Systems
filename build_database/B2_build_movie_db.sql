@@ -1,7 +1,7 @@
 -- Dropping tables to rebuild the database
 DROP TABLE IF EXISTS titles, versions, persons, episodes, principals, genres, title_genre,
 participates_in_title,crew, known_for_title, person_profession, professions,
-title_directors, title_writers, ratings, title_extras, name_ratings, word_index CASCADE;
+title_directors, title_writers, ratings, title_extras, person_ratings, word_index CASCADE;
 
 -- Creating copies of original tables that will be used to build our functioning database - not touching originals in order to be able to rebuild
 CREATE TABLE titles AS TABLE title_basics;
@@ -180,7 +180,7 @@ ALTER TABLE word_index
   ADD CONSTRAINT pk_tconst_lexeme PRIMARY KEY (tconst, word, field),
   ADD CONSTRAINT fk_tconst_word_index FOREIGN KEY (tconst) REFERENCES titles(tconst) ON DELETE CASCADE;
 	
-	-- Create table for name_ratings
+	-- Create table for person ratings
 CREATE TABLE person_ratings(
 	nconst VARCHAR(10) UNIQUE,
 	weighted_rating NUMERIC

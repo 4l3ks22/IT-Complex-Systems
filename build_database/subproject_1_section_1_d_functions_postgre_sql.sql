@@ -352,10 +352,10 @@ BEGIN
   SELECT
     pr.nconst,
     pr.primaryname,
-    MAX(nr.weighted_rating::NUMERIC) AS popularity
+    MAX(person_ratings.weighted_rating::NUMERIC) AS popularity
   FROM participates_in_title pit
   JOIN persons pr ON pr.nconst = pit.nconst
-  LEFT JOIN name_ratings nr ON nr.nconst = pr.nconst
+  LEFT JOIN person_ratings ON person_ratings.nconst = pr.nconst
   WHERE pit.tconst = input_tconst
   GROUP BY pr.nconst, pr.primaryname
   ORDER BY popularity DESC NULLS LAST, pr.primaryname;
@@ -394,7 +394,7 @@ $$;
     
     -- 1_D.10 Frequent person words
     CREATE
-    OR REPLACE FUNCTION person_words (input_name TEXT, input_limit INT DEFAULT 10) RETURNS TABLE (word TEXT, frequency INT) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION person_words (input_name VARCHAR(256), input_limit INT DEFAULT 10) RETURNS TABLE (word TEXT, frequency BIGINT) LANGUAGE plpgsql AS $$
     BEGIN
       RETURN QUERY WITH target_person AS (SELECT nconst FROM persons WHERE LOWER(primaryname) LIKE LOWER('%' || input_name || '%')),
       related_titles AS (SELECT DISTINCT pit.tconst FROM participates_in_title pit JOIN target_person tp ON tp.nconst = pit.nconst),
@@ -411,9 +411,11 @@ $$;
         LIMIT input_limit;
     END;
     $$;
+    
     -- 1_D.11 Exact-match querying
+    -- Using variadic argument for variable number of input arguments (https://www.postgresql.org/docs/current/typeconv-func.html)
     CREATE
-    OR REPLACE FUNCTION query_match (input_keywords TEXT []) RETURNS TABLE (tconst CHAR(10), title TEXT) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION query_match (VARIADIC input_keywords TEXT []) RETURNS TABLE (tconst CHAR(10), title TEXT) LANGUAGE plpgsql AS $$
     BEGIN
       RETURN QUERY SELECT
         t.tconst,
@@ -435,7 +437,7 @@ $$;
     $$;
     -- 1_D.12 Best-match querying
     CREATE
-    OR REPLACE FUNCTION query_best_match (input_keywords TEXT [], input_limit INT DEFAULT 100) RETURNS TABLE (tconst CHAR(10), title TEXT, RANK INT) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION query_best_match (VARIADIC input_keywords TEXT []) RETURNS TABLE (tconst CHAR(10), title TEXT, RANK BIGINT) LANGUAGE plpgsql AS $$
     BEGIN
       RETURN QUERY SELECT
         t.tconst,
@@ -452,12 +454,13 @@ $$;
       ORDER BY
         RANK DESC,
         t.primarytitle
-        LIMIT input_limit;
+        LIMIT 100;
     END;
     $$;
+    
     -- 1_D.13 Word-to-words querying
     CREATE
-    OR REPLACE FUNCTION query_word_to_words (input_keywords TEXT [], input_limit INT DEFAULT 20) RETURNS TABLE (word TEXT, frequency INT) LANGUAGE plpgsql AS $$
+    OR REPLACE FUNCTION query_word_to_words (VARIADIC input_keywords TEXT []) RETURNS TABLE (word TEXT, frequency BIGINT) LANGUAGE plpgsql AS $$
     BEGIN
       RETURN QUERY WITH matched_titles AS (SELECT DISTINCT wi.tconst FROM word_index wi WHERE wi.word = ANY (input_keywords)),
       collected_words AS (
@@ -469,15 +472,15 @@ $$;
         WHERE
           wi.word <> ALL (input_keywords) -- exclude the query words themselves
       ) SELECT
-        word,
+        cw.word,
         COUNT(*) AS frequency
       FROM
-        collected_words
+        collected_words cw
       GROUP BY
-        word
+      cw.word
       ORDER BY
-        frequency DESC,
-        word
-        LIMIT input_limit;
+      cw.word,
+      frequency DESC
+        LIMIT 100;
     END;
     $$;

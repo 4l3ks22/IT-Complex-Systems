@@ -46,7 +46,20 @@ SELECT co_players('Keanu Angelo');
 -- Popular actors test
 SELECT popular_actors('tt1745960');
 
--- Similar movies
+-- Similar movies test
 SELECT similar_movies('tt19403210');
 
-SELECT * FROM titles where lower(titles.primarytitle) = 'top gun: maverick';
+-- All person words test
+SELECT person_words('Keanu Reeves');
+
+-- Array query match test
+SELECT query_match('love', 'hate');
+-- testing more arguments
+SELECT query_match('love', 'war', 'fight');
+
+SELECT query_best_match('love');
+
+SELECT query_word_to_words('matrix', 'keanu');
+
+
+
