@@ -293,36 +293,43 @@ $$;
   END;
   $$;
   -- 1_D.6 Finding co-players
-  CREATE
-  OR REPLACE FUNCTION co_players (input_name TEXT) RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256), frequency BIGINT) LANGUAGE plpgsql AS $$
-  BEGIN
-    RETURN QUERY WITH TARGET AS (
-      SELECT DISTINCT
-        pit.tconst
-      FROM
-        persons n
-        JOIN participates_in_title pit ON pit.nconst = n.nconst
-      WHERE
-        LOWER(n.primaryname) LIKE LOWER('%' || input_name || '%')
-    ) SELECT
-      n2.nconst,
-      n2.primaryname,
-      COUNT(*) AS frequency
+CREATE OR REPLACE FUNCTION co_players(input_name TEXT)
+RETURNS TABLE (nconst CHAR(10), primaryname VARCHAR(256), frequency BIGINT)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RETURN QUERY
+  WITH TARGET AS (
+    SELECT DISTINCT
+      pit.tconst
     FROM
-      TARGET t
-      JOIN participates_in_title pit2 ON pit2.tconst = t.tconst
-      JOIN persons n2 ON n2.nconst = pit2.nconst
+      persons n
+      JOIN participates_in_title pit ON pit.nconst = n.nconst
     WHERE
-      LOWER(n2.primaryname) <> LOWER(input_name)
-    GROUP BY
-      n2.nconst,
-      n2.primaryname
-    ORDER BY
-      frequency DESC,
-      n2.primaryname
-      LIMIT 20;
-  END;
-  $$;
+      LOWER(n.primaryname) LIKE LOWER('%' || input_name || '%')
+      AND pit.category IN ('actor', 'actress')  -- include both actors and actresses
+  )
+  SELECT
+    n2.nconst,
+    n2.primaryname,
+    COUNT(*) AS frequency
+  FROM
+    TARGET t
+    JOIN participates_in_title pit2 ON pit2.tconst = t.tconst
+    JOIN persons n2 ON n2.nconst = pit2.nconst
+  WHERE
+    LOWER(n2.primaryname) <> LOWER(input_name)
+    AND pit2.category IN ('actor', 'actress') 
+  GROUP BY
+    n2.nconst,
+    n2.primaryname
+  ORDER BY
+    frequency DESC,
+    n2.primaryname
+  LIMIT 20;
+END;
+$$;
+
   -- 1_D.7 Name rating
 DO $$
 BEGIN
@@ -357,10 +364,12 @@ BEGIN
   JOIN persons pr ON pr.nconst = pit.nconst
   LEFT JOIN person_ratings ON person_ratings.nconst = pr.nconst
   WHERE pit.tconst = input_tconst
+    AND pit.category IN ('actor', 'actress')  
   GROUP BY pr.nconst, pr.primaryname
   ORDER BY popularity DESC NULLS LAST, pr.primaryname;
 END;
 $$;
+
     -- 1_D.9 Similar movies
 CREATE OR REPLACE FUNCTION similar_movies (input_tconst VARCHAR)
 RETURNS TABLE (

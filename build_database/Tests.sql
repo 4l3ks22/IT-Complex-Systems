@@ -33,10 +33,12 @@ SELECT * from user_search_history; -- checking search history if user was regist
 SELECT * from ratings where tconst = 'tt32452395'; -- before rating
 SELECT rate(2, 'tt32452395', 10);
 SELECT * from ratings where tconst = 'tt32452395'; -- after rating
+SELECT rate(2, 'tt32452395', 12); -- testing rating range (1-10)
 
 -- Structured search
 SELECT structured_string_search(2, 'John Wick', NULL, NULL, 'Keanu Reeves');
-
+SELECT structured_string_search(NULL, 'John Wick', NULL, NULL, 'Keanu Reeves');
+SELECT* from user_search_history;
 -- Finding names test
 SELECT name_search(2, 'alin');
 
@@ -58,8 +60,11 @@ SELECT query_match('love', 'hate');
 SELECT query_match('love', 'war', 'fight');
 
 SELECT query_best_match('love');
+SELECT query_best_match('love', 'hate');
+
 
 SELECT query_word_to_words('matrix', 'keanu');
+SELECT query_word_to_words('matrix', 'keanu', 'pill');
 
 
 
