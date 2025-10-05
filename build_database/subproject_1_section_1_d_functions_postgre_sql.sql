@@ -330,7 +330,7 @@ BEGIN
 END;
 $$;
 
-  -- 1_D.7 Name rating
+  -- 1_D.7 Person rating
 DO $$
 BEGIN
   INSERT INTO person_ratings (nconst, weighted_rating)
