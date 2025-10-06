@@ -2,8 +2,8 @@
 
 public class Request
 {
-    private string method;
-    private string path;
-    private string date;
-    private string body;
+    public string Method;
+    public string Path;
+    public string Date;
+    public string? Body;
 }
