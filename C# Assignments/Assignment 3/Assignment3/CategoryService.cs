@@ -7,14 +7,19 @@ public class CategoryService
 {
     private List<Category> _categories = new List<Category>()
     {
-        new Category { Cid = 1, Name = "Beverage" },
-        new Category { Cid = 2, Name = "Condiments" },
-        new Category { Cid = 3, Name = "Confections" }
+        new Category { Id = 1, Name = "Beverage" },
+        new Category { Id = 2, Name = "Condiments" },
+        new Category { Id = 3, Name = "Confections" }
     };
 
-    public Category GetCategory(int id)
+    public List<Category> GetCategories()
     {
-        return _categories.Find(c => c.Cid == id);
+        return _categories;
+    }
+
+public Category GetCategory(int id)
+    {
+        return _categories.Find(c => c.Id == id);
     }
 
     public bool UpdateCategory(int id, string newName)
@@ -36,7 +41,7 @@ public class CategoryService
     public bool CreateCategory(int id, string newName)
     {
         if (GetCategory(id) != null) return false;
-        _categories.Add(new Category { Cid = id, Name = newName });
+        _categories.Add(new Category { Id = id, Name = newName });
         return true;
     }
     

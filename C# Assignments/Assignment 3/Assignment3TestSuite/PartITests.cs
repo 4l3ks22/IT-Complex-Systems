@@ -1,4 +1,5 @@
 ﻿using System;
+using Assignment3;
 using Xunit;
 
 namespace Assignment3TestSuite;
@@ -6,7 +7,46 @@ namespace Assignment3TestSuite;
 
 public class PartITests
 {
+    [Theory]
+    [InlineData("create", "xxx")]
+    [InlineData("update", "xxx")]
+    public void RequestValidator_NoJasonBody_ShouldReturnIllegalBody(string method, string body)
+    {
+        // Arrange
+        var requestValidator = new RequestValidator();
+        var request = new Request
+        {
+            Method = method,
+            Path = "/api/xxx",
+            Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(),
+            Body = body
+        };
+        // Act
+        var result = requestValidator.ValidateRequest(request);
+        // Assert
+        Assert.Contains("illegal body", result.Status);
+    }
+
+
+    [Fact]
+    public void RequestValidator_ValidGetRequest_ShouldReturnTrue()
+    {
+        // Arrange
+        var requestValidator = new RequestValidator();
+        var request = new Request
+        {
+            Method = "read",
+            Path = "/api/categories/1",
+            Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()
+        };
+        // Act
+        var result = requestValidator.ValidateRequest(request);
+        // Assert
+        Assert.Equal("1 Ok", result.Status);
+    }
+
     //////////////////////////////////////////////////////////
+
     /// 
     /// Testing UrlParser class
     /// 
@@ -42,6 +82,7 @@ public class PartITests
     }
 
     //////////////////////////////////////////////////////////
+
     /// 
     /// Testing RequestValidator class
     /// 
@@ -169,49 +210,6 @@ public class PartITests
         // Assert
         Assert.Equal("1 Ok", result.Status);
     }
-
-    [Theory]
-    [InlineData("create", "xxx")]
-    [InlineData("update", "xxx")]
-    public void RequestValidator_NoJasonBody_ShouldReturnIllegalBody(string method, string body)
-    {
-        // Arrange
-        var requestValidator = new RequestValidator();
-        var request = new Request
-        {
-            Method = method,
-            Path = "/api/xxx",
-            Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(),
-            Body = body
-        };
-        // Act
-        var result = requestValidator.ValidateRequest(request);
-        // Assert
-        Assert.Contains("illegal body", result.Status);
-    }
-
-
-    [Fact]
-    public void RequestValidator_ValidGetRequest_ShouldReturnTrue()
-    {
-        // Arrange
-        var requestValidator = new RequestValidator();
-        var request = new Request
-        {
-            Method = "read",
-            Path = "/api/categories/1",
-            Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()
-        };
-        // Act
-        var result = requestValidator.ValidateRequest(request);
-        // Assert
-        Assert.Equal("1 Ok", result.Status);
-    }
-
-    
-
-    
-
 
 
     //////////////////////////////////////////////////////////
