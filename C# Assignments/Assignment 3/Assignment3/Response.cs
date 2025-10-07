@@ -3,11 +3,11 @@
 public class Response
 {
     public string Status { get; set; }
-    public string Body { get; set; }
+    public string? Body { get; set; }
 
-    public Response(string Status, string? Body = null)
+    public Response(string status, string? body = null)
     {
-        Status = Status;
-        Body = Body;
+        Status = status;
+        Body = body;
     }
 }

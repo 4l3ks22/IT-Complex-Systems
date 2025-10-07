@@ -1,29 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.Marshalling;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Assignment3;
 
 public class RequestValidator
 {
     private string[] _arrayOfCorrectMethods = { "create", "read", "update", "delete", "echo" };
-
-    private Dictionary<int, string> _status = new Dictionary<int, string>()
-    {
-        { 1, "Ok" },
-        { 2, "Created" },
-        { 3, "Updated" },
-        { 4, "Bad Request" },
-        { 5, "Not Found" },
-        { 6, "Error" }
-    };
     
     private List<string> _issues = new List<string>();
 
-    public Response ValidateRequest(Request request)
+    public Response ValidateRequest(Request? request)
     {   
         // Request validation
         if (request == null)
@@ -32,40 +19,41 @@ public class RequestValidator
         }
        
         // Method validation
-        if (string.IsNullOrWhiteSpace(request.Method))
+        if (string.IsNullOrEmpty(request.Method))
         {
-            _issues.Add("Missing method");
+            _issues.Add("missing method");
+            return new Response("missing method");
         }
         
         else if (!_arrayOfCorrectMethods.Contains(request.Method))
         {
-            _issues.Add("Illegal method");
+            _issues.Add("illegal method");
         }
         
         // Path validation
         if (string.IsNullOrWhiteSpace(request.Path))
         {
-            _issues.Add("Missing path");
+            _issues.Add("missing path");
         }
         else if (!request.Path.StartsWith("/"))
         {
-            _issues.Add("Invalid path");
+            _issues.Add("invalid path");
         }
         
         // Date validation
-        long.TryParse(request.Date, out long dateNum); // Converting date to long
+        long.TryParse(request.Date, out long dateResult); // Converting date to long
         
         if (string.IsNullOrWhiteSpace(request.Date))
         {
-            _issues.Add("Missing date");
+            _issues.Add("missing date");
         } 
         else if (!long.TryParse(request.Date.Trim(), out _))
         {
             // If it cannot parse as a long integer (Unix seconds), it's illegal
-           _issues.Add("Illegal date");
+           _issues.Add("illegal date");
         }
 
-        bool IsBodyValidJson(string input)
+        bool IsValidJson(string input)
         {
             try
             {
@@ -83,11 +71,11 @@ public class RequestValidator
         {
             if (string.IsNullOrEmpty(request.Body))
             {
-                _issues.Add("Missing body");
+                _issues.Add("missing body");
             }
-            else if (!IsBodyValidJson(request.Body))
+            else if (!IsValidJson(request.Body))
             {
-                _issues.Add("Illegal body");
+                _issues.Add("illegal body");
             }
         }
 
@@ -95,15 +83,10 @@ public class RequestValidator
         {
             if (string.IsNullOrEmpty(request.Body))
             {
-                _issues.Add("Missing body");
+                _issues.Add("missing body");
             }
-        } 
-        
-        if (_issues.Count == 0 )
-            return new Response("1 Ok");
-        else
-        {
-            return new Response($"4 {string.Join(", ", _issues)}");
         }
+        
+        return _issues.Any() ? new Response($"4 {string.Join(", ", _issues)}") : new Response("1 Ok");
     }
 }

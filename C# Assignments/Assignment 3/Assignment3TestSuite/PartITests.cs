@@ -99,7 +99,7 @@ public class PartITests
             Date = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString()
         };
         // Act
-        var result = requestValidator.ValidateRequest(request);
+          var result = requestValidator.ValidateRequest(request);
         // Assert
         Assert.Contains("missing method", result.Status);
     }
