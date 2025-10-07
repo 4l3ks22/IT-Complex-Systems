@@ -32,51 +32,44 @@ public class RequestValidator
         }
        
         // Method validation
-        if (request.Method.ToLower() == "")
+        if (string.IsNullOrWhiteSpace(request.Method))
         {
-            _issues.Add("4 Missing method");
+            _issues.Add("Missing method");
         }
         
         else if (!_arrayOfCorrectMethods.Contains(request.Method))
         {
-            _issues.Add("4 Illegal method");
+            _issues.Add("Illegal method");
         }
         
         // Path validation
-        if (request.Path == "")
+        if (string.IsNullOrWhiteSpace(request.Path))
         {
-            _issues.Add("4 Missing path");
+            _issues.Add("Missing path");
         }
-        else if (request.Path.StartsWith("/"))
+        else if (!request.Path.StartsWith("/"))
         {
-            _issues.Add("4 Invalid path");
+            _issues.Add("Invalid path");
         }
         
         // Date validation
         long.TryParse(request.Date, out long dateNum); // Converting date to long
         
-        if (request.Date == "")
+        if (string.IsNullOrWhiteSpace(request.Date))
         {
-            _issues.Add("4 Missing date");
+            _issues.Add("Missing date");
         } 
-        
-        else if (dateNum > 0)
+        else if (!long.TryParse(request.Date.Trim(), out _))
         {
-            try
-            {
-                var date = DateTimeOffset.FromUnixTimeSeconds(dateNum);
-            }
-            catch (Exception e)
-            {
-                _issues.Add("4 Illegal date");
-            }
+            // If it cannot parse as a long integer (Unix seconds), it's illegal
+           _issues.Add("Illegal date");
         }
 
         bool IsBodyValidJson(string input)
         {
             try
             {
-                JsonDocument.Parse(input);
+                using var doc =JsonDocument.Parse(input);
                 return true;
             }
             catch
@@ -90,11 +83,11 @@ public class RequestValidator
         {
             if (string.IsNullOrEmpty(request.Body))
             {
-                _issues.Add("4 Missing body");
+                _issues.Add("Missing body");
             }
             else if (!IsBodyValidJson(request.Body))
             {
-                _issues.Add("4 Illegal body");
+                _issues.Add("Illegal body");
             }
         }
 
@@ -102,7 +95,7 @@ public class RequestValidator
         {
             if (string.IsNullOrEmpty(request.Body))
             {
-                _issues.Add("4 Missing body");
+                _issues.Add("Missing body");
             }
         } 
         

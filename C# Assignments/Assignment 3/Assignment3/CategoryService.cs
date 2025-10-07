@@ -17,24 +17,24 @@ public class CategoryService
         return _categories;
     }
 
-public Category GetCategory(int id)
+    public Category GetCategory(int id)
     {
         return _categories.Find(c => c.Id == id);
     }
 
     public bool UpdateCategory(int id, string newName)
     {
-        var receiveCategory = GetCategory(id);
-        if (receiveCategory == null) return false;
-        receiveCategory.Name = newName;
+        var receivedCategory = GetCategory(id);
+        if (receivedCategory == null) return false;
+        receivedCategory.Name = newName;
         return true;
     }
 
     public bool DeleteCategory(int id)
     {
-        var receiveCategory = GetCategory(id);
-        if (receiveCategory == null) return false;
-        _categories.Remove(receiveCategory);
+        var receivedCategory = GetCategory(id);
+        if (receivedCategory == null) return false;
+        _categories.Remove(receivedCategory);
         return true;
     }
 
