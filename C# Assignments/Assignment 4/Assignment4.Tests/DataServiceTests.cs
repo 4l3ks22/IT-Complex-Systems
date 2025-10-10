@@ -33,22 +33,22 @@ namespace Assignment4.Tests
             var category = service.GetCategory(1);
             Assert.Equal("Beverages", category.Name);
         }
+
+
+        [Fact]
+        public void CreateCategory_ValidData_CreteCategoryAndRetunsNewObject()
+        {
+            var service = new DataService();
+            var category = service.CreateCategory("Test", "CreateCategory_ValidData_CreteCategoryAndRetunsNewObject");
+            Assert.True(category.Id > 0);
+            Assert.Equal("Test", category.Name);
+            Assert.Equal("CreateCategory_ValidData_CreteCategoryAndRetunsNewObject", category.Description);
+
+            // cleanup
+            service.DeleteCategory(category.Id);
+        }
     }
 }
-
-//         [Fact]
-//         public void CreateCategory_ValidData_CreteCategoryAndRetunsNewObject()
-//         {
-//             var service = new DataService();
-//             var category = service.CreateCategory("Test", "CreateCategory_ValidData_CreteCategoryAndRetunsNewObject");
-//             Assert.True(category.Id > 0);
-//             Assert.Equal("Test", category.Name);
-//             Assert.Equal("CreateCategory_ValidData_CreteCategoryAndRetunsNewObject", category.Description);
-//
-//             // cleanup
-//             service.DeleteCategory(category.Id);
-//         }
-//
 //         [Fact]
 //         public void DeleteCategory_ValidId_RemoveTheCategory()
 //         {

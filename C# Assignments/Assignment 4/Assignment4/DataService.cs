@@ -21,6 +21,22 @@ public class DataService
         var category = db.Categories.FirstOrDefault(x => x.Id == categoryId);
         return category;
     }
+
+    public Category CreateCategory(string name, string description)
+    {
+        var id = db.Categories.Max(x => x.Id) + 1; // id is not auto incremented, have to manually do it by checking max value and adding 1
+        var category = new Category{Id = id, Name = name, Description = description };
+        db.Categories.Add(category);
+        db.SaveChanges();
+        return category;
+    }
+
+    public void DeleteCategory(int categoryId)
+    {
+        db.Categories.Remove(GetCategory(categoryId));
+        db.SaveChanges();
+        GetCategory(categoryId);
+    }
 }
 
 
