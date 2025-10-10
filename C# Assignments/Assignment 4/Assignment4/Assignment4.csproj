@@ -10,11 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="9.0.4" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="obj\OrderDetails.cs" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
 </Project>

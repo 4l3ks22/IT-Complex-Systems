@@ -45,7 +45,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
         
         // Context for Order Details
-        modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
+        modelBuilder.Entity<OrderDetails>().HasNoKey().ToTable("orderdetails");
         modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
         modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
         modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");

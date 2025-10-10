@@ -9,16 +9,12 @@
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Assignment4.runtimeconfig.json
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Assignment4.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Assignment4.pdb
-/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
-/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Bcl.HashCode.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
-/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.Configuration.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
-/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Binder.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
 /Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
