@@ -37,6 +37,13 @@ public class DataService
         db.SaveChanges();
         GetCategory(categoryId);
     }
+
+    public void UpdateCategory(int categoryId)
+    {
+        db.Categories.Update(GetCategory(categoryId));
+        db.SaveChanges();
+        
+    }
 }
 
 
