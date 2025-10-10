@@ -6,11 +6,14 @@ public class Order
 {
     public int Id { get; set; }
     public  DateTime Date { get; set; }  //date type
-    public DateTime Require { get; set; } //date type for requireddate
+    public DateTime Required { get; set; } //date type for requireddate
     public DateTime Shipped { get; set; } //date type
     public int Freight { get; set; }
     public string ShipName { get; set; }
     public string ShipCity { get; set; }
+    
+    public int ProductId { get; set; }
 
+    public List<OrderDetails>? OrderDetails { get; set; }
 
 }

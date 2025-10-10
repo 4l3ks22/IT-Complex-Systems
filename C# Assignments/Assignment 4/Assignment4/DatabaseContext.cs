@@ -10,10 +10,10 @@ public class DatabaseContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderDetails> OrderDetails { get; set; }
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        
+
         optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;password=");
     }
@@ -25,7 +25,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Category>().Property(x => x.Id).HasColumnName("categoryid");
         modelBuilder.Entity<Category>().Property(x => x.Name).HasColumnName("categoryname");
         modelBuilder.Entity<Category>().Property(x => x.Description).HasColumnName("description");
-        
+
         // Context For Product
         modelBuilder.Entity<Product>().ToTable("products");
         modelBuilder.Entity<Product>().Property(x => x.Id).HasColumnName("productid");
@@ -38,16 +38,33 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Order>().ToTable("orders");
         modelBuilder.Entity<Order>().Property(x => x.Id).HasColumnName("orderid");
         modelBuilder.Entity<Order>().Property(x => x.Date).HasColumnName("orderdate");
-        modelBuilder.Entity<Order>().Property(x => x.Require).HasColumnName("requireddate");
+        modelBuilder.Entity<Order>().Property(x => x.Required).HasColumnName("requireddate");
         modelBuilder.Entity<Order>().Property(x => x.Shipped).HasColumnName("shippeddate");
         modelBuilder.Entity<Order>().Property(x => x.Freight).HasColumnName("freight");
         modelBuilder.Entity<Order>().Property(x => x.ShipName).HasColumnName("shipname");
         modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
-        
+
         // Context for Order Details
-        modelBuilder.Entity<OrderDetails>().HasNoKey().ToTable("orderdetails");
+        modelBuilder.Entity<OrderDetails>().ToTable("orderdetails")
+            .HasKey(od => new { od.OrderId, od.ProductId });
+        modelBuilder.Entity<OrderDetails>().Property(x => x.OrderId).HasColumnName("orderid");
         modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
         modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
         modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
+
+        // Configuring relations
+        modelBuilder.Entity<OrderDetails>()
+            .HasOne(od => od.Order)
+            .WithMany(o => o.OrderDetails)
+            .HasForeignKey(od => od.OrderId);
+
+        modelBuilder.Entity<OrderDetails>()
+            .HasOne(od => od.Product)
+            .WithMany()
+            .HasForeignKey(od => od.ProductId);
+
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.Category)
+            .WithMany();
     }
 }

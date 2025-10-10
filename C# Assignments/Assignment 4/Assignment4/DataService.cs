@@ -31,20 +31,78 @@ public class DataService
         return category;
     }
 
-    public void DeleteCategory(int categoryId)
+    public bool DeleteCategory(int categoryId)
     {
         db.Categories.Remove(GetCategory(categoryId));
         db.SaveChanges();
         GetCategory(categoryId);
+        return true;
     }
 
-    public void UpdateCategory(int categoryId)
+    public bool UpdateCategory(int categoryId, string name, string description)
     {
-        db.Categories.Update(GetCategory(categoryId));
-        db.SaveChanges();
+        var category = GetCategory(categoryId);
+        if (category == null) return false;
         
+        category.Name = name;
+        category.Description = description;
+        db.SaveChanges();
+        return true;
+    }
+
+    public Product GetProduct(int productId)
+    {
+        return db.Products
+            .Include(p => p.Category)
+            .FirstOrDefault(p => p.Id == productId);
+    }
+
+    public List<Product> GetProductByCategory(int categoryId)
+    {
+        return db.Products
+            .Include(p => p.Category.Name)
+            .Where(p => p.CategoryId == categoryId)
+            .ToList();
+    }
+
+    public List<Product> GetProductByName(string nameSubString)
+    {
+        return db.Products
+            .Where(p => p.Name.Contains(nameSubString))
+            .ToList();
+    }
+
+    public Order GetOrder(int orderId)
+    {
+        return db.Orders
+            .Include(o => o.OrderDetails)
+            .ThenInclude(od => od.Product)
+            .ThenInclude(p => p.Category)
+            .FirstOrDefault(o => o.Id == orderId);
+    }
+
+    public List<Order> GetOrders()
+    {
+        return db.Orders.ToList();
+    }
+
+    public List<OrderDetails> GetOrderDetailsByOrderId(int orderId)
+    {
+        return db.OrderDetails
+            .Include(od => od.Product)
+            .Where(od => od.OrderId == orderId)
+            .ToList();
+    }
+
+    public List<OrderDetails> GetOrderDetailsByProductId(int productId)
+    {
+        return db.OrderDetails
+            .Include(od => od.Order)
+            .Where(od => od.Product.Id == productId)
+            .ToList();
     }
 }
+
 
 
 
