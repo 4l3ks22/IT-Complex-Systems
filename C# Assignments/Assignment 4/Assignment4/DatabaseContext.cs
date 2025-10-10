@@ -1,4 +1,5 @@
 using System;
+using Assignment4.obj;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,6 +9,8 @@ public class DatabaseContext : DbContext
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderDetails> OrderDetails { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -41,5 +44,11 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Order>().Property(x => x.Freight).HasColumnName("freight");
         modelBuilder.Entity<Order>().Property(x => x.ShipName).HasColumnName("shipname");
         modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
+        
+        // Context for Order Details
+        modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
+        modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
+        modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
+        modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
     }
 }
