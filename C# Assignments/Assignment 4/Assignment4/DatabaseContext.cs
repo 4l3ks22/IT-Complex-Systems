@@ -32,6 +32,14 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
         modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
 
-        
+        // Context For Order
+        modelBuilder.Entity<Order>().ToTable("orders");
+        modelBuilder.Entity<Order>().Property(x => x.Id).HasColumnName("orderid");
+        modelBuilder.Entity<Order>().Property(x => x.Date).HasColumnName("orderdate");
+        modelBuilder.Entity<Order>().Property(x => x.Require).HasColumnName("requireddate");
+        modelBuilder.Entity<Order>().Property(x => x.Shipped).HasColumnName("shippeddate");
+        modelBuilder.Entity<Order>().Property(x => x.Freight).HasColumnName("freight");
+        modelBuilder.Entity<Order>().Property(x => x.ShipName).HasColumnName("shipname");
+        modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
     }
 }
