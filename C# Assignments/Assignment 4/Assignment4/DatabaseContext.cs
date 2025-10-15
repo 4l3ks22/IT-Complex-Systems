@@ -14,7 +14,7 @@ public class DatabaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.EnableSensitiveDataLogging();
-        optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;password=");
+        optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;password=;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
