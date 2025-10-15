@@ -33,9 +33,11 @@ public class DataService
 
     public bool DeleteCategory(int categoryId)
     {
-        db.Categories.Remove(GetCategory(categoryId));
+        var category = GetCategory(categoryId);
+        if (category == null) return false;
+        
+        db.Categories.Remove(category);
         db.SaveChanges();
-        GetCategory(categoryId);
         return true;
     }
 
@@ -59,10 +61,21 @@ public class DataService
 
     public List<Product> GetProductByCategory(int categoryId)
     {
-        return db.Products
-            .Include(p => p.Category.Name)
+        var products = db.Products
+            .Include(p => p.Category)
             .Where(p => p.CategoryId == categoryId)
             .ToList();
+        
+        // Populate CategoryName property
+        foreach (var product in products)
+        {
+            if (product.Category != null)
+            {
+                product.CategoryName = product.Category.Name;
+            }
+        }
+        
+        return products;
     }
 
     public List<Product> GetProductByName(string nameSubString)
@@ -76,8 +89,8 @@ public class DataService
     {
         return db.Orders
             .Include(o => o.OrderDetails)
-            .ThenInclude(od => od.Product)
-            .ThenInclude(p => p.Category)
+                .ThenInclude(od => od.Product)
+                    .ThenInclude(p => p.Category)
             .FirstOrDefault(o => o.Id == orderId);
     }
 
@@ -85,10 +98,11 @@ public class DataService
     {
         return db.Orders.ToList();
     }
-
+    
     public List<OrderDetails> GetOrderDetailsByOrderId(int orderId)
     {
         return db.OrderDetails
+            .Include(od => od.Order)
             .Include(od => od.Product)
             .Where(od => od.OrderId == orderId)
             .ToList();
@@ -98,15 +112,8 @@ public class DataService
     {
         return db.OrderDetails
             .Include(od => od.Order)
-            .Where(od => od.Product.Id == productId)
+            .Include(od => od.Product)
+            .Where(od => od.ProductId == productId)
             .ToList();
     }
 }
-
-
-
-
-
-    
-   
-
