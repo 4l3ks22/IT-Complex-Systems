@@ -8,6 +8,27 @@
           "build/netstandard1.0/coverlet.collector.targets": {}
         }
       },
+      "Mapster/9.0.0-pre01": {
+        "type": "package",
+        "dependencies": {
+          "Mapster.Core": "9.0.0-pre01"
+        },
+        "compile": {
+          "lib/net9.0/Mapster.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/Mapster.dll": {}
+        }
+      },
+      "Mapster.Core/9.0.0-pre01": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Mapster.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/Mapster.Core.dll": {}
+        }
+      },
       "Microsoft.CodeCoverage/16.7.1": {
         "type": "package",
         "compile": {
@@ -2044,6 +2065,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "Mapster": "9.0.0-pre01",
           "Npgsql": "9.0.4",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
         },
@@ -2087,6 +2109,34 @@
         "coverlet-icon.png",
         "coverlet.collector.1.3.0.nupkg.sha512",
         "coverlet.collector.nuspec"
+      ]
+    },
+    "Mapster/9.0.0-pre01": {
+      "sha512": "T9B4KSYi0LJ124i+Y6nedUh/PUPWHloVJSErCRAkrH8AqGNj7NXy2poCxz9vPCdeOC1RLNvUhhN1HxhaDSPbFg==",
+      "type": "package",
+      "path": "mapster/9.0.0-pre01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net8.0/Mapster.dll",
+        "lib/net9.0/Mapster.dll",
+        "mapster.9.0.0-pre01.nupkg.sha512",
+        "mapster.nuspec"
+      ]
+    },
+    "Mapster.Core/9.0.0-pre01": {
+      "sha512": "POm9O/8rZcm9d/4ikWET85vg27U+1uJxfpKdQdYKB/fX3Wj7ql3t6FdX9g4MYUaiIIkEnhCUnyuC3oUaYN6rRQ==",
+      "type": "package",
+      "path": "mapster.core/9.0.0-pre01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net8.0/Mapster.Core.dll",
+        "lib/net9.0/Mapster.Core.dll",
+        "mapster.core.9.0.0-pre01.nupkg.sha512",
+        "mapster.core.nuspec"
       ]
     },
     "Microsoft.CodeCoverage/16.7.1": {
@@ -6436,6 +6486,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "DataServiceLayer >= 1.0.0",
+      "Mapster >= 9.0.0-pre01",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
       "Npgsql >= 9.0.4",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
@@ -6491,6 +6542,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "Mapster": {
+            "target": "Package",
+            "version": "[9.0.0-pre01, )"
+          },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[16.7.1, )"

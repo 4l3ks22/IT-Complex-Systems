@@ -2,6 +2,27 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "Mapster/9.0.0-pre01": {
+        "type": "package",
+        "dependencies": {
+          "Mapster.Core": "9.0.0-pre01"
+        },
+        "compile": {
+          "lib/net9.0/Mapster.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/Mapster.dll": {}
+        }
+      },
+      "Mapster.Core/9.0.0-pre01": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Mapster.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/Mapster.Core.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore/9.0.1": {
         "type": "package",
         "dependencies": {
@@ -268,6 +289,34 @@
     }
   },
   "libraries": {
+    "Mapster/9.0.0-pre01": {
+      "sha512": "T9B4KSYi0LJ124i+Y6nedUh/PUPWHloVJSErCRAkrH8AqGNj7NXy2poCxz9vPCdeOC1RLNvUhhN1HxhaDSPbFg==",
+      "type": "package",
+      "path": "mapster/9.0.0-pre01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net8.0/Mapster.dll",
+        "lib/net9.0/Mapster.dll",
+        "mapster.9.0.0-pre01.nupkg.sha512",
+        "mapster.nuspec"
+      ]
+    },
+    "Mapster.Core/9.0.0-pre01": {
+      "sha512": "POm9O/8rZcm9d/4ikWET85vg27U+1uJxfpKdQdYKB/fX3Wj7ql3t6FdX9g4MYUaiIIkEnhCUnyuC3oUaYN6rRQ==",
+      "type": "package",
+      "path": "mapster.core/9.0.0-pre01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net8.0/Mapster.Core.dll",
+        "lib/net9.0/Mapster.Core.dll",
+        "mapster.core.9.0.0-pre01.nupkg.sha512",
+        "mapster.core.nuspec"
+      ]
+    },
     "Microsoft.EntityFrameworkCore/9.0.1": {
       "sha512": "E25w4XugXNykTr5Y/sLDGaQ4lf67n9aXVPvsdGsIZjtuLmbvb9AoYP8D50CDejY8Ro4D9GK2kNHz5lWHqSK+wg==",
       "type": "package",
@@ -681,6 +730,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "Mapster >= 9.0.0-pre01",
       "Npgsql >= 9.0.4",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4"
     ]
@@ -728,6 +778,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "Mapster": {
+            "target": "Package",
+            "version": "[9.0.0-pre01, )"
+          },
           "Npgsql": {
             "target": "Package",
             "version": "[9.0.4, )"
