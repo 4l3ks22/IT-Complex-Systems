@@ -1,0 +1,9 @@
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.csproj.AssemblyReference.cache
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.AssemblyInfoInputs.cache
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.AssemblyInfo.cs
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.csproj.CoreCompileInputs.cache
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.sourcelink.json
