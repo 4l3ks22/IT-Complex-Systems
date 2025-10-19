@@ -13,9 +13,8 @@ public class DatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-
         optionsBuilder.EnableSensitiveDataLogging();
-        optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;password=");
+        optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;password=;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +32,9 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<Product>().Property(x => x.UnitPrice).HasColumnName("unitprice");
         modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
         modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
+        modelBuilder.Entity<Product>().Property(x => x.CategoryId).HasColumnName("categoryid");
+        modelBuilder.Entity<Product>().Ignore(x => x.CategoryName);
+        modelBuilder.Entity<Product>().Ignore(x => x.ProductName);
 
         // Context For Order
         modelBuilder.Entity<Order>().ToTable("orders");
@@ -51,6 +53,7 @@ public class DatabaseContext : DbContext
         modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
         modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
         modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
+        modelBuilder.Entity<OrderDetails>().Property(x => x.ProductId).HasColumnName("productid");
 
         // Configuring relations
         modelBuilder.Entity<OrderDetails>()
@@ -65,6 +68,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Product>()
             .HasOne(p => p.Category)
-            .WithMany();
+            .WithMany()
+            .HasForeignKey(p => p.CategoryId);
     }
 }

@@ -1204,7 +1204,7 @@
         "runtime": {
           "lib/netstandard2.0/xunit.abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -1258,7 +1258,7 @@
         },
         "runtime": {
           "Assignment4.dll": {
-            "assemblyVersion": "1.0.0.0",
+            "assemblyVersion": "1.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
