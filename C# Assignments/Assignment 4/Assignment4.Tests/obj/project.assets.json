@@ -6496,32 +6496,33 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\akale\\.nuget\\packages\\": {}
+    "/Users/alexander/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4.Tests\\Assignment4.Tests.csproj",
+      "projectUniqueName": "/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4.Tests/Assignment4.Tests.csproj",
       "projectName": "Assignment4.Tests",
-      "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4.Tests\\Assignment4.Tests.csproj",
-      "packagesPath": "C:\\Users\\akale\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4.Tests\\obj\\",
+      "projectPath": "/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4.Tests/Assignment4.Tests.csproj",
+      "packagesPath": "/Users/alexander/.nuget/packages/",
+      "outputPath": "/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/Assignment4.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\akale\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/alexander/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "/opt/homebrew/Cellar/dotnet/9.0.8/libexec/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj": {
-              "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj"
+            "/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/DataServiceLayer/DataServiceLayer.csproj": {
+              "projectPath": "/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/DataServiceLayer/DataServiceLayer.csproj"
             }
           }
         }
@@ -6536,7 +6537,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -6591,7 +6592,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/9.0.8/libexec/sdk/9.0.109/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

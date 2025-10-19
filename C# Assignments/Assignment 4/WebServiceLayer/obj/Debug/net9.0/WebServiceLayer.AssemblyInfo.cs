@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebServiceLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+73bdf2e0a80b2e05ae1bf8ef755f2253394dc398")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c41894ab51dbda1bc7f3795672a4a1ef65cc8f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebServiceLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebServiceLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

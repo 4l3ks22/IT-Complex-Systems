@@ -5,6 +5,9 @@ public class DataService : IDataService
 {
 
     private readonly string? _connectString;
+    public DataService()
+    {
+    }
     public DataService(string? connectString)
     {
         _connectString = connectString;

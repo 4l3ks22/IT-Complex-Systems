@@ -1,9 +1,66 @@
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.csproj.AssemblyReference.cache
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\rpswa.dswa.cache.json
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.AssemblyInfoInputs.cache
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.AssemblyInfo.cs
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.csproj.CoreCompileInputs.cache
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\akale\OneDrive - Roskilde Universitet\Skola\Master's\Complex IT Systems\New folder\IT-Complex-Systems\C# Assignments\Assignment 4\WebServiceLayer\obj\Debug\net9.0\WebServiceLayer.sourcelink.json
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.csproj.AssemblyReference.cache
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/rpswa.dswa.cache.json
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.AssemblyInfoInputs.cache
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.AssemblyInfo.cs
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.csproj.CoreCompileInputs.cache
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.MvcApplicationPartsAssemblyInfo.cs
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.MvcApplicationPartsAssemblyInfo.cache
+C:/Users/akale/OneDrive - Roskilde Universitet/Skola/Master's/Complex IT Systems/New folder/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.sourcelink.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/DataServiceLayer.deps.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/DataServiceLayer.runtimeconfig.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/DataServiceLayer
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/appsettings.Development.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/appsettings.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/config.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/WebServiceLayer.staticwebassets.endpoints.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/WebServiceLayer
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/WebServiceLayer.deps.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/WebServiceLayer.runtimeconfig.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/WebServiceLayer.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/WebServiceLayer.pdb
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Mapster.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Mapster.Core.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Mapster.DependencyInjection.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Microsoft.OpenApi.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Npgsql.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/DataServiceLayer.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/bin/Debug/net9.0/DataServiceLayer.pdb
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.csproj.AssemblyReference.cache
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.AssemblyInfoInputs.cache
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.AssemblyInfo.cs
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.csproj.CoreCompileInputs.cache
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.MvcApplicationPartsAssemblyInfo.cs
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.MvcApplicationPartsAssemblyInfo.cache
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.sourcelink.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/scopedcss/bundle/WebServiceLayer.styles.css
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets.build.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets.development.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets.build.endpoints.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets/msbuild.WebServiceLayer.Microsoft.AspNetCore.StaticWebAssets.props
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets/msbuild.WebServiceLayer.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets/msbuild.build.WebServiceLayer.props
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets/msbuild.buildMultiTargeting.WebServiceLayer.props
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets/msbuild.buildTransitive.WebServiceLayer.props
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/staticwebassets.pack.json
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServi.8191765C.Up2Date
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/refint/WebServiceLayer.dll
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.pdb
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/WebServiceLayer.genruntimeconfig.cache
+/Users/alexander/Documents/GitHub/IT-Complex-Systems/C# Assignments/Assignment 4/WebServiceLayer/obj/Debug/net9.0/ref/WebServiceLayer.dll
