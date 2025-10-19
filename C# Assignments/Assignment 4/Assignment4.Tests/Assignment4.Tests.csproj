@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Assignment4\Assignment4.csproj" />
+    <ProjectReference Include="..\DataServiceLayer\DataServiceLayer.csproj" />
   </ItemGroup>
 
 </Project>

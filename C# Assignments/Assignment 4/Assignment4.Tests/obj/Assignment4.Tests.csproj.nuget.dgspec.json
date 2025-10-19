@@ -26,8 +26,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj": {
-                "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj"
+              "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj": {
+                "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj"
               }
             }
           }
@@ -97,14 +97,14 @@
         }
       }
     },
-    "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj": {
+    "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj",
-        "projectName": "Assignment4",
-        "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj",
+        "projectUniqueName": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj",
+        "projectName": "DataServiceLayer",
+        "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj",
         "packagesPath": "C:\\Users\\akale\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\obj\\",
+        "outputPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\akale\\AppData\\Roaming\\NuGet\\NuGet.Config"

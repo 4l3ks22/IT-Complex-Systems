@@ -8,7 +8,7 @@ using Assignment4;
 using Microsoft.EntityFrameworkCore;
 
 
-public class DataService
+public class DataService : IDataService
 {
     DatabaseContext db = new();
     public List<Category> GetCategories()

@@ -2040,7 +2040,7 @@
           "build/netcoreapp2.1/xunit.runner.visualstudio.props": {}
         }
       },
-      "Assignment4/1.0.0": {
+      "DataServiceLayer/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
@@ -2048,10 +2048,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
         },
         "compile": {
-          "bin/placeholder/Assignment4.dll": {}
+          "bin/placeholder/DataServiceLayer.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Assignment4.dll": {}
+          "bin/placeholder/DataServiceLayer.dll": {}
         }
       }
     }
@@ -6427,15 +6427,15 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "Assignment4/1.0.0": {
+    "DataServiceLayer/1.0.0": {
       "type": "project",
-      "path": "../Assignment4/Assignment4.csproj",
-      "msbuildProject": "../Assignment4/Assignment4.csproj"
+      "path": "../DataServiceLayer/DataServiceLayer.csproj",
+      "msbuildProject": "../DataServiceLayer/DataServiceLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Assignment4 >= 1.0.0",
+      "DataServiceLayer >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.7.1",
       "Npgsql >= 9.0.4",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
@@ -6469,8 +6469,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj": {
-              "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\Assignment4\\Assignment4.csproj"
+            "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj": {
+              "projectPath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\DataServiceLayer\\DataServiceLayer.csproj"
             }
           }
         }
