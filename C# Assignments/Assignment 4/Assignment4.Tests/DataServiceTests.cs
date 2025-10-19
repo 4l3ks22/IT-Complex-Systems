@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace Assignment4.Tests
+namespace DataServiceLayer.Tests
 {
     public class DataServiceTests
     {

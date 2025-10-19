@@ -125,6 +125,10 @@
               "target": "Package",
               "version": "[9.0.0-pre01, )"
             },
+            "Mapster.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.0-pre01, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.9, )"

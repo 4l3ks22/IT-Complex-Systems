@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Assignment4.Tests
+namespace DataServiceLayer.Tests
 {
     
     public class WebServiceTests

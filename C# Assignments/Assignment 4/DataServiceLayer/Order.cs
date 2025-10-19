@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Assignment4;
+namespace DataServiceLayer;
 
 public class Order
 {

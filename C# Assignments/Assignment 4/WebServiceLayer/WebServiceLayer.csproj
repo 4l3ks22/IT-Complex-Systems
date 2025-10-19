@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Mapster" Version="9.0.0-pre01" />
+        <PackageReference Include="Mapster.DependencyInjection" Version="9.0.0-pre01" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9"/>
     </ItemGroup>
 

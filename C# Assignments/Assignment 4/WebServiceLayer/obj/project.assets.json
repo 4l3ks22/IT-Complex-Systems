@@ -23,6 +23,19 @@
           "lib/net9.0/Mapster.Core.dll": {}
         }
       },
+      "Mapster.DependencyInjection/9.0.0-pre01": {
+        "type": "package",
+        "dependencies": {
+          "Mapster": "9.0.0-pre01",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
+        },
+        "compile": {
+          "lib/net9.0/Mapster.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/Mapster.DependencyInjection.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/9.0.9": {
         "type": "package",
         "dependencies": {
@@ -362,6 +375,20 @@
         "lib/net9.0/Mapster.Core.dll",
         "mapster.core.9.0.0-pre01.nupkg.sha512",
         "mapster.core.nuspec"
+      ]
+    },
+    "Mapster.DependencyInjection/9.0.0-pre01": {
+      "sha512": "HBULPK3Dgc16dQ/auZWW2vzKQIJwV+VxqRHdvE+YlPFA1s+JMYlP3TesKOCqYr64U3uiT7FXyDBcXlWNOtSJyw==",
+      "type": "package",
+      "path": "mapster.dependencyinjection/9.0.0-pre01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net8.0/Mapster.DependencyInjection.dll",
+        "lib/net9.0/Mapster.DependencyInjection.dll",
+        "mapster.dependencyinjection.9.0.0-pre01.nupkg.sha512",
+        "mapster.dependencyinjection.nuspec"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/9.0.9": {
@@ -815,6 +842,7 @@
     "net9.0": [
       "DataServiceLayer >= 1.0.0",
       "Mapster >= 9.0.0-pre01",
+      "Mapster.DependencyInjection >= 9.0.0-pre01",
       "Microsoft.AspNetCore.OpenApi >= 9.0.9"
     ]
   },
@@ -866,6 +894,10 @@
         "targetAlias": "net9.0",
         "dependencies": {
           "Mapster": {
+            "target": "Package",
+            "version": "[9.0.0-pre01, )"
+          },
+          "Mapster.DependencyInjection": {
             "target": "Package",
             "version": "[9.0.0-pre01, )"
           },

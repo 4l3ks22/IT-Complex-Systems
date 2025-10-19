@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0Sgu8B1+i+k=",
+  "dgSpecHash": "LALCh/Fa7a0=",
   "success": true,
   "projectFilePath": "C:\\Users\\akale\\OneDrive - Roskilde Universitet\\Skola\\Master's\\Complex IT Systems\\New folder\\IT-Complex-Systems\\C# Assignments\\Assignment 4\\WebServiceLayer\\WebServiceLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\akale\\.nuget\\packages\\mapster\\9.0.0-pre01\\mapster.9.0.0-pre01.nupkg.sha512",
     "C:\\Users\\akale\\.nuget\\packages\\mapster.core\\9.0.0-pre01\\mapster.core.9.0.0-pre01.nupkg.sha512",
+    "C:\\Users\\akale\\.nuget\\packages\\mapster.dependencyinjection\\9.0.0-pre01\\mapster.dependencyinjection.9.0.0-pre01.nupkg.sha512",
     "C:\\Users\\akale\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.9\\microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
     "C:\\Users\\akale\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.1\\microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
     "C:\\Users\\akale\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\9.0.1\\microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",

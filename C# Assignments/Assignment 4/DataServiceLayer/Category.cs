@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 
-namespace Assignment4;
 public class Category
 {
     public int Id { get; set; }

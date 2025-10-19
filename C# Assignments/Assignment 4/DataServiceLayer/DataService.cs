@@ -1,19 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assignment4;
+﻿using DataServiceLayer;
 using Microsoft.EntityFrameworkCore;
-
 
 public class DataService : IDataService
 {
     DatabaseContext db = new();
+
     public List<Category> GetCategories()
     {
         return db.Categories.ToList();
+    }
+
+    public List<Category> GetCategories(int page, int pageSize)
+    {
+        return db.Categories
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+    }
+
+    public int GetCategoriesCount()
+    {
+        return db.Categories.Count();
     }
 
     public Category GetCategory(int categoryId)
@@ -30,6 +37,14 @@ public class DataService : IDataService
         db.SaveChanges();
         return category;
     }
+    
+    public Category CreateCategory(Category category)
+    {
+        db.Categories.Add(category);
+        db.SaveChanges();
+        return category;
+    }
+
 
     public bool DeleteCategory(int categoryId)
     {
@@ -52,12 +67,27 @@ public class DataService : IDataService
         return true;
     }
 
+    public int GetProductCount()
+    {
+        return db.Products.Count();
+    }
+    
     public Product GetProduct(int productId)
     {
         return db.Products
             .Include(p => p.Category)
             .FirstOrDefault(p => p.Id == productId);
     }
+    
+    public List<Product> GetProducts(int page, int pageSize)
+    {
+        return db.Products
+            .Include(p => p.Category)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+    }
+
 
     public List<Product> GetProductByCategory(int categoryId)
     {

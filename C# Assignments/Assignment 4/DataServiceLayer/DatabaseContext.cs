@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Assignment4;
+namespace DataServiceLayer;
 
 public class DatabaseContext : DbContext
 {
