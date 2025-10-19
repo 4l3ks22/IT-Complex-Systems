@@ -1,41 +1,29 @@
-var builder = WebApplication.CreateBuilder(args);
+using DataServiceLayer;
+using Mapster;
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+namespace WebServiceLayer;
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.MapOpenApi();
-}
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+    public static void Main(string[] args)
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Configuration.AddJsonFile("config.json");
 
-app.Run();
+        var connectionString = builder.Configuration.GetSection("ConnectionString").Value;
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+        builder.Services.AddSingleton<IDataService>(new DataService(connectionString));
+        builder.Services.AddMapster();
+
+        builder.Services.AddControllers();
+
+        var app = builder.Build();
+
+        // Configure the HTTP request pipeline.
+
+        app.MapControllers();
+
+        app.Run();
+    }
 }

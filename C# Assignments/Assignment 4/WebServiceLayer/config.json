@@ -1,0 +1,3 @@
+﻿{
+  "ConnectionString": "host=localhost;db=northwind;uid=postgres;password=;"
+}

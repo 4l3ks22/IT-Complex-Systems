@@ -3,6 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 public class DataService : IDataService
 {
+
+    private readonly string? _connectString;
+    public DataService(string? connectString)
+    {
+        _connectString = connectString;
+    }
+    
     DatabaseContext db = new();
 
     public List<Category> GetCategories()
