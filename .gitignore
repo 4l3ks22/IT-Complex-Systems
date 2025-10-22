@@ -1,0 +1,12 @@
+*.sqlite
+*.sqlite-journal
+*.vsidx
+*.json
+*.v2
+*.manifest
+*.bin
+*.cache
+*.testlog
+C\# Assignments/Assignment 4/.vs/Assignment4TestSuitePartI/v17/.suo
+*.exe
+*.editorconfig
